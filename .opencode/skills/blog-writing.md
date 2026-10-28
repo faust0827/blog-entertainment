@@ -51,3 +51,15 @@ description: Use this skill whenever the user asks to write, draft, or create a 
 
 - 커뮤니티: 오늘의 유머 / 개 drip / FM코리아
 - 원문 URL 필수 포함
+
+## 작성 후 자동 발행 (바로 발행)
+
+"글써줘" 요청으로 글을 생성한 뒤에는 **사용자에게 묻지 않고 자동으로 발행까지 진행**한다.
+
+1. 글 HTML 저장 (`posts/YYYY-slug.html`)
+2. 게이트 점검: `.venv/bin/python automation/publish.py posts/<slug>.html --check-only`
+3. 통과 시 **초안(draft)으로 자동 발행**: `.venv/bin/python automation/publish.py posts/<slug>.html --draft`
+4. (선택) 사용자가 "공개해줘"/"발행해줘"라고 명시하면 `--publish --reviewed`로 공개 전환
+5. (선택) 사용자가 "예약해줘"라고 명시하면 `--schedule <RFC3339>`로 예약 발행
+
+초안 발행은 검토용이므로 자동 진행하고, **공개 발행(--publish)은 반드시 사용자 확인 후** 실행한다 (안전 가드).
