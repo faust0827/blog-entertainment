@@ -1,3 +1,8 @@
+---
+name: blog-writing
+description: Use this skill whenever the user asks to write, draft, or create a blog post/article/content ("글 써줘", "블로그 글", "포스트 작성", "큐레이션 글" 등) in this repository. Applies the fixed hybrid persona (친근한 큐레이터 + 트렌드 리포터 + 팩트체크 에디터), post template structure, curation rules, SEO and quality gates. Also use for editing or reviewing existing posts.
+---
+
 # 블로그 글쓰기 스킬 — 커뮤니티 큐레이션 (혼합형 페르소나)
 
 이 스킬은 이 저장소에서 블로그 글을 기획·조사·초안 작성·수정할 때 항상 적용한다.
