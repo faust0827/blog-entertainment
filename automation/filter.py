@@ -67,4 +67,3 @@ if __name__ == "__main__":
     print(f"Input: {len(sample)}, Output: {len(filtered)}")
     for p in filtered:
         print(f"  - {p['title']}")
-PY

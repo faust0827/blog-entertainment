@@ -146,4 +146,3 @@ def curate_batch(raw_dir: str = None, existing_titles: list[str] | None = None) 
 if __name__ == "__main__":
     results = curate_batch()
     print(f"\nCurated {len(results)} posts")
-PY

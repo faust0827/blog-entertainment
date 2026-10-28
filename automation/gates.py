@@ -116,4 +116,3 @@ if __name__ == "__main__":
     print(format_results(results, sys.argv[1]))
     if failed(results):
         sys.exit(3)
-PY
