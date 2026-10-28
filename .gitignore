@@ -1,0 +1,22 @@
+# Secrets
+client_secret*.json
+token.json
+.env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Data (crawled raw data - may contain copyrighted content)
+data/
+
+# Pixabay cache
+.pixabay_cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# OpenCode
+.opencode/

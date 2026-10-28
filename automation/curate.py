@@ -1,0 +1,149 @@
+#!/usr/bin/env python3
+"""AI 큐레이션 파이프라인 — 커뮤니티 글을 블로그 글로 변환."""
+from __future__ import annotations
+
+import json
+import os
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from filter import filter_posts
+
+# AI API 설정 (환경변수에서 읽음)
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
+ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+
+CURATE_PROMPT = """당신은 커뮤니티 큐레이션 블로그의 글 작성자입니다.
+대상 독자: 커뮤니티에 관심 있는 일반인.
+
+제공 자료:
+- 커뮤니티: {community}
+- 원제: {title}
+- 원문 요약: {body_summary}
+- 댓글 수: {comment_count}개
+- 대표 반응: {top_comments}
+
+필수 규칙:
+1. 구조는 템플릿 준수 — 첫 문단에 핵심 요약
+2. 원글 요약은 3~5문장 이내. 직접 인용은 최소화.
+3. 댓글은 반응 비율 + 대표 반응 요약 (원문 복사 금지)
+4. AI 해설·분석 단락 1개 이상 (배경·맥락·의견)
+5. 출처 URL 반드시 포함
+6. 금지 표현: "요즘 현대인들은", "마지막으로 정리하자면", "도움이 되셨기를 바랍니다"
+7. 장황하게 쓰지 않기 — 짧은 문단, 핵심만
+분량: 1,000~2,000자
+
+출력 형식: HTML (DOCTYPE, head, body 포함). 본문은 <p>, <h2>, <h3>, <ul>, <ol>, <table> 태그 사용.
+마지막에 <p><strong>확인일: YYYY-MM-DD</strong> · 출처: <a href="URL">커뮤니티명</a></p> 포함.
+"""
+
+
+def curate_post(post: dict) -> str | None:
+    """단일 게시글 큐레이션."""
+    community = post.get("community", "unknown")
+    title = post.get("title", "")
+    body = post.get("body", "")[:1000]
+    comments = post.get("comments", [])
+    comment_count = len(comments)
+    top_comments = "\n".join(f"- {c.get('text', '')[:100]}" for c in comments[:5])
+    url = post.get("url", "")
+    
+    prompt = CURATE_PROMPT.format(
+        community=community,
+        title=title,
+        body_summary=body,
+        comment_count=comment_count,
+        top_comments=top_comments,
+    )
+    
+    # Try OpenAI first, then Anthropic
+    if OPENAI_API_KEY:
+        return _call_openai(prompt, title, url)
+    elif ANTHROPIC_API_KEY:
+        return _call_anthropic(prompt, title, url)
+    else:
+        print("  API 키가 설정되지 않았습니다. OPENAI_API_KEY 또는 ANTHROPIC_API_KEY 환경변수를 설정하세요.")
+        return None
+
+
+def _call_openai(prompt: str, title: str, url: str) -> str | None:
+    """OpenAI API 호출."""
+    try:
+        import openai
+        client = openai.OpenAI(api_key=OPENAI_API_KEY)
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "당신은 커뮤니티 큐레이션 블로그 글 작성자입니다. HTML만 출력하세요."},
+                {"role": "user", "content": prompt},
+            ],
+            temperature=0.7,
+            max_tokens=2000,
+        )
+        return response.choices[0].message.content
+    except Exception as e:
+        print(f"  OpenAI API error: {e}")
+        return None
+
+
+def _call_anthropic(prompt: str, title: str, url: str) -> str | None:
+    """Anthropic API 호출."""
+    try:
+        import anthropic
+        client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+        response = client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=2000,
+            messages=[
+                {"role": "user", "content": prompt},
+            ],
+        )
+        return response.content[0].text
+    except Exception as e:
+        print(f"  Anthropic API error: {e}")
+        return None
+
+
+def curate_batch(raw_dir: str = None, existing_titles: list[str] | None = None) -> list[tuple[str, str]]:
+    """크롤링된 데이터를 큐레이션하여 HTML 파일 생성."""
+    if raw_dir is None:
+        raw_dir = str(Path(__file__).resolve().parent.parent / "data" / "raw")
+    
+    raw_path = Path(raw_dir)
+    if not raw_path.exists():
+        print(f"Raw data directory not found: {raw_dir}")
+        return []
+    
+    # Load latest combined file
+    combined_files = sorted(raw_path.glob("combined_*.json"), reverse=True)
+    if not combined_files:
+        print("No combined data files found")
+        return []
+    
+    data = json.loads(combined_files[0].read_text(encoding="utf-8"))
+    print(f"Loaded {len(data)} posts from {combined_files[0].name}")
+    
+    # Filter
+    filtered = filter_posts(data, existing_titles)
+    print(f"After filtering: {len(filtered)} posts")
+    
+    # Curate
+    results = []
+    for i, post in enumerate(filtered):
+        print(f"\n[{i+1}/{len(filtered)}] Curating: {post.get('title', '')[:50]}...")
+        html = curate_post(post)
+        if html:
+            results.append((post.get("title", ""), html))
+            print(f"  OK ({len(html)} chars)")
+        else:
+            print(f"  FAILED")
+    
+    return results
+
+
+if __name__ == "__main__":
+    results = curate_batch()
+    print(f"\nCurated {len(results)} posts")
+PY
