@@ -36,8 +36,20 @@ blog-entertainment/
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install requests beautifulsoup4 openai anthropic
+pip install requests beautifulsoup4 openai anthropic playwright
+playwright install chromium
 ```
+
+### Blogger 블로그 생성 (최초 1회)
+
+1. https://www.blogger.com → Google 계정 로그인 → "새 블로그"
+2. 제목·주소 설정 (예: `entertainment-curate.blogspot.com`) → "만들기"
+3. Google Cloud Console (https://console.cloud.google.com) → 새 프로젝트 → Blogger API v3 사용 설정
+4. OAuth 클라이언트 ID 생성 (데스크톱 앱) → `client_secret_*.json` 다운로드 → 프로젝트 폴더에 복사
+5. `python automation/auth_setup.py` 실행 → 브라우저에서 인증 → `token.json` 생성
+6. `automation/publish.py`의 `DEFAULT_BLOG_URL`을 새 블로그 주소로 수정
+7. Blogger 관리 → 테마 → 백업/다운로드 (원본 백업) → 복원/업로드 → `templates/blog-layout.xml` 선택
+8. 소개·개인정보처리방침 페이지 생성, 라벨(카테고리) 구성
 
 ### 환경변수
 
