@@ -35,7 +35,7 @@ description: Use this skill whenever the user asks to write, draft, or create a 
 - 출처 URL: 1개 이상 필수
 - AI 해설·분석 단락: 1개 이상 필수
 - 분량: 1,000자 이상
-- 이미지: 원본 이미지 직접 삽입 금지 (링크만)
+- 이미지: 사용하지 않음 (텍스트만). 원본 이미지 링크도 불필요.
 - 민감 콘텐츠 제외: 정치·종교·성인·혐오·개인정보
 - 저작권 이미지 제외
 
