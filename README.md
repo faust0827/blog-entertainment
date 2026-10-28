@@ -36,7 +36,7 @@ blog-entertainment/
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install requests beautifulsoup4 openai anthropic playwright
+pip install requests beautifulsoup4 openai anthropic playwright google-api-python-client google-auth-oauthlib
 playwright install chromium
 ```
 
