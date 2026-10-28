@@ -32,7 +32,7 @@ def latest_post() -> Path | None:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--no-crawl", action="store_true")
-    ap.add_argument("--publish", action="store_true", help="공개 발행 (기본은 초안)")
+    ap.add_argument("--draft", action="store_true", help="초안으로만 저장 (기본은 공개 발행)")
     args = ap.parse_args()
 
     # 1. 크롤링
@@ -63,12 +63,12 @@ def main() -> int:
         print("게이트 미통과 → 발행 중단", file=sys.stderr)
         return 3
 
-    # 5. 발행
+    # 5. 발행 (기본: 공개 발행)
     cmd = [PYTHON, str(HERE / "publish.py"), str(post)]
-    if args.publish:
-        cmd += ["--publish", "--reviewed"]
-    else:
+    if args.draft:
         cmd += ["--draft"]
+    else:
+        cmd += ["--publish", "--reviewed"]
     r = run(cmd, cwd=str(ROOT))
     return r.returncode
 
