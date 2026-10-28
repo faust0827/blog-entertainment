@@ -9,6 +9,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from crawler_todayhumor import collect as collect_todayhumor, save as save_todayhumor
+from crawler_humoruniv import collect as collect_humoruniv, save as save_humoruniv
 
 OUTPUT_DIR = Path(__file__).resolve().parent.parent / "data" / "raw"
 
@@ -24,7 +25,16 @@ def main():
             save_todayhumor(posts)
     except Exception as e:
         print(f"  Error: {e}")
-    
+
+    print("\n=== 웃긴대학 ===")
+    try:
+        posts = collect_humoruniv()
+        all_posts.extend(posts)
+        if posts:
+            save_humoruniv(posts)
+    except Exception as e:
+        print(f"  Error: {e}")
+
     print(f"\n=== 총 수집: {len(all_posts)}건 ===")
     
     # Save combined
