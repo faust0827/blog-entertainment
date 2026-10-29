@@ -12,6 +12,18 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from filter import filter_posts
 
 # AI API 설정 (환경변수에서 읽음)
+# .env 파일에서 환경변수 로드 (없으면 무시)
+_env_path = Path(__file__).resolve().parent.parent / ".env"
+if _env_path.exists():
+    for _line in _env_path.read_text(encoding="utf-8").splitlines():
+        _line = _line.strip()
+        if not _line or _line.startswith("#") or "=" not in _line:
+            continue
+        _k, _v = _line.split("=", 1)
+        _k, _v = _k.strip(), _v.strip().strip('"').strip("'")
+        if _k and _k not in os.environ:
+            os.environ[_k] = _v
+
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 

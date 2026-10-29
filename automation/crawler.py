@@ -2,32 +2,52 @@
 """커뮤니티 크롤러 통합 실행기."""
 from __future__ import annotations
 
+import importlib
 import json
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from crawler_todayhumor import collect as collect_todayhumor, save as save_todayhumor
-
 OUTPUT_DIR = Path(__file__).resolve().parent.parent / "data" / "raw"
+
+COMMUNITIES = [
+    "crawler_todayhumor",
+    "crawler_dogdrip",
+    "crawler_fmkorea",
+    "crawler_theqoo",
+    "crawler_ruliweb",
+    "crawler_inven",
+    "crawler_ppomppu",
+    "crawler_mlbpark",
+    "crawler_clien",
+    "crawler_instiz",
+    "crawler_bobaedream",
+    "crawler_humoruniv",
+    "crawler_cook82",
+    "crawler_damoang",
+    "crawler_orbi",
+    "crawler_gasengi",
+]
 
 
 def main():
     all_posts = []
-    
-    print("=== 오늘의 유머 ===")
-    try:
-        posts = collect_todayhumor()
-        all_posts.extend(posts)
-        if posts:
-            save_todayhumor(posts)
-    except Exception as e:
-        print(f"  Error: {e}")
-    
+
+    for mod_name in COMMUNITIES:
+        name = mod_name.replace("crawler_", "")
+        print(f"\n=== {name} ===")
+        try:
+            mod = importlib.import_module(mod_name)
+            posts = mod.collect()
+            all_posts.extend(posts)
+            if posts:
+                mod.save(posts)
+        except Exception as e:
+            print(f"  Error: {e}")
+
     print(f"\n=== 총 수집: {len(all_posts)}건 ===")
-    
-    # Save combined
+
     if all_posts:
         OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
         from datetime import datetime
