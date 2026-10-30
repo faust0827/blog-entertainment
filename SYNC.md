@@ -33,3 +33,30 @@
 작업 중: git commit (로컬)
 작업 종료: git push
 ```
+
+---
+
+## 2026-10-30 16:15 — 작업 공유 완료 (push)
+
+- **머신**: y40
+- **push**: `b3122b4..73e49c9 main -> main`
+- **로컬 HEAD = 원격**: `73e49c9`
+- **총 커밋**: 95개 (모두 원격에 반영됨)
+
+### 이번 세션에서 추가된 작업
+- 아카라이브(arca.live) 크롤러 추가 (13개 커뮤니티)
+- OCR 모듈 (EasyOCR) + curate.py 연동
+- A+B 통합 큐레이션 (group_by_topic + 커뮤니티별 반응)
+- 제목에서 괄호 접두어 제거 ([화제], [정보] 등)
+- 내부 링크 자동 삽입 (url_map.json)
+- SEO 태그 자동 삽입 (JSON-LD, OG, Canonical)
+- GA4 연동 도구 (ga4_inject.py)
+- 색인 요청 URL 목록 (index_urls.txt, 27개)
+- 30+개 글 발행 (모두 LIVE)
+- SETUP.md, SYNC.md, SEO_TODO.md, TUNING_TODO.md 문서
+
+### 다른 컴퓨터에서 작업 시작
+```bash
+git pull origin main
+# SETUP.md 참고하여 환경 설정
+```
