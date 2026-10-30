@@ -21,9 +21,9 @@
   - submit_index.py 안내 스크립트 + publish.py 힌트
   - 커밋: 690f716
 
-- [ ] **5. 내부 링크 자동 삽입**
-  - 발행 시 관련 글 2~3개 자동 링크 (url_map.json 활용)
-  - 커밋: (미완료)
+- [x] **5. 내부 링크 자동 삽입**
+  - url_map.json + _related_section 자동 삽입
+  - 커밋: (진행 중)
 
 ---
 
