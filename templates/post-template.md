@@ -15,6 +15,33 @@
 - AI 말투 금지: "요즘 현대인들은", "마지막으로 정리하자면", "도움이 되셨기를 바랍니다", "지금까지 ~을 자세히 살펴보았습니다", "오늘은 ~에 대해 알아보겠습니다" 등.
 - 문체: `~합니다/~입니다` 체 유지 (제목/첫 문단에서만 짧고 강한 어조 허용).
 
+## 0-1. SEO 태그 (head에 포함)
+
+모든 HTML 글의 `<head>`에는 아래 SEO 태그를 포함한다.
+
+```html
+<meta name="description" content="메타 설명 (30~120자, 핵심 키워드 포함)">
+<title>[화제] 제목 — 커뮤니티 반응 요약</title>
+<!-- Open Graph -->
+<meta property="og:title" content="제목">
+<meta property="og:description" content="메타 설명">
+<meta property="og:type" content="article">
+<meta property="og:url" content="글 URL">
+<!-- Canonical -->
+<link rel="canonical" href="글 URL">
+<!-- JSON-LD 구조화 데이터 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "제목",
+  "datePublished": "YYYY-MM-DD",
+  "author": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"},
+  "publisher": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"}
+}
+</script>
+```
+
 ## 1. 글 구조 (큐레이션 정보형)
 
 ```markdown
