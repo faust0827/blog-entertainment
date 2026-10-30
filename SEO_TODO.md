@@ -21,7 +21,7 @@
   - 4개 기존 글에 SEO 태그 추가
   - 커밋: 6d622db
 
-- [ ] **5. gates.py에 SEO 검사 항목 추가**
+- [x] **5. gates.py에 SEO 검사 항목 추가**
   - 메타 description 키워드, H2 최소 2개, JSON-LD 존재 여부
   - 커밋: b8103ee
 

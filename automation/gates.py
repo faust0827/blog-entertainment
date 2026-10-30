@@ -57,6 +57,21 @@ def gate_value_add(content: str) -> GateResult:
     return GateResult("가치추가", True, "가치 추가 확인")
 
 
+def gate_seo_structure(content: str) -> GateResult:
+    """SEO 구조: H2 2개 이상 + JSON-LD 구조화 데이터 존재."""
+    import re
+    h2_count = len(re.findall(r"<h2\b", content, re.I))
+    has_jsonld = "application/ld+json" in content
+    issues = []
+    if h2_count < 2:
+        issues.append(f"H2 {h2_count}개 (최소 2개)")
+    if not has_jsonld:
+        issues.append("JSON-LD 없음")
+    if issues:
+        return GateResult("SEO구조", False, "; ".join(issues))
+    return GateResult("SEO구조", True, f"H2 {h2_count}개 + JSON-LD")
+
+
 def gate_length(content: str) -> GateResult:
     """분량 1,000자 이상."""
     text = re.sub(r"<[^>]+>", "", content)
@@ -87,6 +102,7 @@ def run_gates(content: str) -> list[GateResult]:
         gate_source_link(content),
         gate_comment_summary(content),
         gate_value_add(content),
+        gate_seo_structure(content),
     ]
 
 
