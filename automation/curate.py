@@ -59,6 +59,105 @@ CURATE_PROMPT = """당신은 커뮤니티 큐레이션 블로그의 글 작성�
 """
 
 
+INTEGRATED_PROMPT = """당신은 커뮤니티 큐레이션 블로그의 글 작성자입니다.
+대상 독자: 커뮤니티에 관심 있는 일반인.
+
+# 고정 페르소나 — 혼합형 (친근한 큐레이터 + 트렌드 리포터 + 팩트체크 에디터)
+- 화자: 커뮤니티 화제를 빠르게 전달하면서도 출처와 수치를 정확히 짚어 주는 큐레이터.
+- 제목/첫 문단(트렌드 리포터 톤): "화제", "실시간", "지금 커뮤니티에서" 등 시의성 있는 표현으로 클릭·공유 유도. 과장·낚시성 표현 금지.
+- 본문 요약(친근한 큐레이터 톤): 커뮤니티 원글을 그대로 복사하지 않고 핵심만 쉽게 요약. 독자가 "이게 뭐야?"라고 느끼지 않도록 배경과 맥락 추가.
+- 댓글 반응: 각 커뮤니티별로 "긍정/부정/논쟁" 비율과 대표 반응만 요약 (원문 복사 금지).
+- 해설·분석(팩트체크 에디터 톤): 출처 URL과 수치·날짜를 명시, 공식 자료 기준 정확 서술.
+- 공무원·전문가 자격이나 직접 경험을 꾸며내지 않는다.
+- AI 말투 금지: "요즘 현대인들은", "마지막으로 정리하자면", "도움이 되셨기를 바랍니다", "지금까지 ~을 자세히 살펴보았습니다", "오늘은 ~에 대해 알아보겠습니다".
+- 이미지 직접 삽입 금지. 원본 이미지 URL 링크는 허용 (출처 참고용).
+- 이미지 텍스트를 인용할 때 'OCR', '추출', '텍스트 인식' 등의 메타 표현 사용 금지. 자연스럽게 내용으로만 서술.
+- 문체: ~합니다/~입니다 체 유지 (제목/첫 문단에서만 짧고 강한 어조 허용).
+
+제공 자료:
+- 주제: {topic}
+- 대표 커뮤니티: {primary_community}
+- 대표 원제: {primary_title}
+- 대표 원문 요약: {primary_body}
+- 대표 이미지 텍스트 (OCR): {primary_image_text}
+- 커뮤니티별 반응:
+{community_reactions}
+
+필수 규칙:
+1. 구조는 템플릿 준수 — 첫 문단에 핵심 요약
+2. 원글 요약은 3~5문장 이내. 직접 인용은 최소화.
+3. 커뮤니티 반응은 "## 커뮤니티 반응" 섹션 아래에 "### 커뮤니티명" 소제목으로 각각 구분하여 작성
+4. AI 해설·분석 단락 1개 이상 (배경·맥락·의견)
+5. 출처 URL 반드시 포함 (모든 커뮤니티 URL)
+6. 금지 표현 사용 금지
+7. 장황하게 쓰지 않기 — 짧은 문단, 핵심만
+분량: 1,000~2,000자
+
+출력 형식: HTML (DOCTYPE, head, body 포함). 본문은 <p>, <h2>, <h3>, <ul>, <ol>, <table> 태그 사용.
+마지막에 <p><strong>확인일: YYYY-MM-DD</strong> · 출처: <a href="URL">커뮤니티명</a>, ...</p> 포함.
+"""
+
+
+def curate_topic_group(group: list[dict]) -> str | None:
+    """같은 주제의 여러 커뮤니티 글을 통합하여 1개의 HTML 글 생성."""
+    if not group:
+        return None
+    # 대표 글: 댓글이 가장 많은 글
+    primary = max(group, key=lambda p: len(p.get("comments", [])))
+    topic = primary.get("title", "")
+    primary_community = primary.get("community", "unknown")
+    primary_title = primary.get("title", "")
+    primary_body = primary.get("body", "")[:1000]
+    # OCR for primary images
+    primary_image_text = ""
+    images = primary.get("images", [])
+    if images:
+        try:
+            from ocr import ocr_images
+            primary_image_text = ocr_images(images)
+            if primary_image_text:
+                print(f"  OCR: {len(primary_image_text)} chars extracted")
+        except Exception as e:
+            print(f"  OCR 실패: {e}")
+    if not primary_image_text:
+        primary_image_text = "(이미지 없음 또는 OCR 실패)"
+
+    # 커뮤니티별 반응 정리
+    reactions = []
+    for post in group:
+        comm = post.get("community", "unknown")
+        comments = post.get("comments", [])
+        comment_count = len(comments)
+        top = "\\n".join(f"  - {c.get('text', '')[:80]}" for c in comments[:5])
+        reactions.append(f"### {comm} ({comment_count}개 댓글)\\n{top}")
+    community_reactions = "\\n\\n".join(reactions)
+
+    prompt = INTEGRATED_PROMPT.format(
+        topic=topic,
+        primary_community=primary_community,
+        primary_title=primary_title,
+        primary_body=primary_body,
+        primary_image_text=primary_image_text,
+        community_reactions=community_reactions,
+    )
+
+    # API 호출
+    openai_key = __import__("os").environ.get("OPENAI_API_KEY", "")
+    anthropic_key = __import__("os").environ.get("ANTHROPIC_API_KEY", "")
+    # use module-level keys
+    import os as _os
+    openai_key = _os.environ.get("OPENAI_API_KEY", OPENAI_API_KEY)
+    anthropic_key = _os.environ.get("ANTHROPIC_API_KEY", ANTHROPIC_API_KEY)
+
+    if openai_key:
+        return _call_openai(prompt, topic, primary.get("url", ""))
+    elif anthropic_key:
+        return _call_anthropic(prompt, topic, primary.get("url", ""))
+    else:
+        print("  API 키가 설정되지 않았습니다.")
+        return None
+
+
 def curate_post(post: dict) -> str | None:
     """단일 게시글 큐레이션."""
     community = post.get("community", "unknown")
@@ -158,14 +257,29 @@ def curate_batch(raw_dir: str = None, existing_titles: list[str] | None = None) 
     # Filter
     filtered = filter_posts(data, existing_titles)
     print(f"After filtering: {len(filtered)} posts")
-    
+
+    # Group by topic (A+B: 통합 + 커뮤니티별 반응)
+    try:
+        from filter import group_by_topic
+        groups = group_by_topic(filtered, threshold=0.5)
+        print(f"Topic groups: {len(groups)} (from {len(filtered)} posts)")
+    except Exception as e:
+        print(f"Grouping failed ({e}), falling back to per-post")
+        groups = [[p] for p in filtered]
+
     # Curate
     results = []
-    for i, post in enumerate(filtered):
-        print(f"\n[{i+1}/{len(filtered)}] Curating: {post.get('title', '')[:50]}...")
-        html = curate_post(post)
+    for i, group in enumerate(groups):
+        topic = group[0].get("title", "")[:50]
+        print(f"\n[{i+1}/{len(groups)}] Curating group ({len(group)} posts): {topic}...")
+        if len(group) == 1:
+            html = curate_post(group[0])
+            title = group[0].get("title", "")
+        else:
+            html = curate_topic_group(group)
+            title = group[0].get("title", "")
         if html:
-            results.append((post.get("title", ""), html))
+            results.append((title, html))
             print(f"  OK ({len(html)} chars)")
         else:
             print(f"  FAILED")

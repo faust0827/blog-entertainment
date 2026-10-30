@@ -56,6 +56,33 @@ def filter_posts(posts: list[dict], existing_titles: list[str] | None = None) ->
     return result
 
 
+def group_by_topic(posts: list[dict], threshold: float = 0.5) -> list[list[dict]]:
+    """같은 주제(제목 유사도 threshold 이상)의 글을 그룹으로 묶는다.
+
+    반환: [[post, post, ...], [post, ...], ...] — 각 그룹은 같은 주제의 글들.
+    각 그룹 내에서 커뮤니티가 다른 글이면 통합 큐레이션 대상.
+    """
+    groups: list[list[dict]] = []
+    for post in posts:
+        title = post.get("title", "")
+        placed = False
+        for group in groups:
+            # 그룹 내 대표 제목과 비교
+            rep_title = group[0].get("title", "")
+            words1 = set(title.lower().split())
+            words2 = set(rep_title.lower().split())
+            if not words1 or not words2:
+                continue
+            overlap = len(words1 & words2) / max(len(words1), len(words2))
+            if overlap >= threshold:
+                group.append(post)
+                placed = True
+                break
+        if not placed:
+            groups.append([post])
+    return groups
+
+
 if __name__ == "__main__":
     # Test with sample data
     sample = [
