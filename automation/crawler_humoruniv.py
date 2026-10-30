@@ -93,12 +93,25 @@ def collect() -> list[Post]:
                         desc = el.get_attribute("content")
                 post.body = (desc or "").strip()
 
-                # Images (full-size only)
+                # Images (extract full-size URL from thumb.php?url= if needed)
+                import urllib.parse
                 imgs = page.query_selector_all("img")
                 seen_img = set()
                 for im in imgs:
                     src = im.get_attribute("src") or ""
-                    if "down.humoruniv.com" in src and "timg.humoruniv" not in src:
+                    # thumb.php?url=... extract real url
+                    if "thumb.php" in src and "url=" in src:
+                        try:
+                            parsed = urllib.parse.urlparse(src)
+                            qs = urllib.parse.parse_qs(parsed.query)
+                            if "url" in qs:
+                                src = qs["url"][0]
+                        except Exception:
+                            pass
+                    if "down.humoruniv.com" in src or "hwiparambbs" in src:
+                        # normalize protocol
+                        if src.startswith("//"):
+                            src = "https:" + src
                         if src not in seen_img:
                             seen_img.add(src)
                             post.images.append(src)

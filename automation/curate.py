@@ -39,6 +39,7 @@ CURATE_PROMPT = """당신은 커뮤니티 큐레이션 블로그의 글 작성�
 - 커뮤니티: {community}
 - 원제: {title}
 - 원문 요약: {body_summary}
+- 이미지 텍스트 (OCR): {image_text}
 - 댓글 수: {comment_count}개
 - 대표 반응: {top_comments}
 
@@ -66,11 +67,22 @@ def curate_post(post: dict) -> str | None:
     comment_count = len(comments)
     top_comments = "\n".join(f"- {c.get('text', '')[:100]}" for c in comments[:5])
     url = post.get("url", "")
-    
+    images = post.get("images", [])
+    image_text = ""
+    if images:
+        try:
+            from ocr import ocr_images
+            image_text = ocr_images(images)
+            if image_text:
+                print(f"  OCR: {len(image_text)} chars extracted")
+        except Exception as e:
+            print(f"  OCR 실패: {e}")
+
     prompt = CURATE_PROMPT.format(
         community=community,
         title=title,
         body_summary=body,
+        image_text=image_text or "(이미지 없음 또는 OCR 실패)",
         comment_count=comment_count,
         top_comments=top_comments,
     )
