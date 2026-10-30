@@ -20,6 +20,7 @@ from crawler_bobaedream import collect as collect_bobaedream, save as save_bobae
 from crawler_instiz import collect as collect_instiz, save as save_instiz
 from crawler_inven import collect as collect_inven, save as save_inven
 from crawler_mlbpark import collect as collect_mlbpark, save as save_mlbpark
+from crawler_arca import collect as collect_arca, save as save_arca
 
 OUTPUT_DIR = Path(__file__).resolve().parent.parent / "data" / "raw"
 
@@ -56,6 +57,7 @@ def main():
         ("인스티즈", collect_instiz, save_instiz),
         ("인벤", collect_inven, save_inven),
         ("엠팍", collect_mlbpark, save_mlbpark),
+        ("아카라이브", collect_arca, save_arca),
     ]:
         print(f"\n=== {name} ===")
         try:
