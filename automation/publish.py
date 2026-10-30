@@ -33,6 +33,7 @@ HERE = Path(__file__).resolve().parent
 CLIENT_SECRET = HERE / "client_secret.json"
 TOKEN = HERE / "token.json"
 LEDGER = HERE / "schedule_ledger.json"
+URL_MAP = HERE / "url_map.json"
 KST = timezone(timedelta(hours=9))
 
 DEFAULT_BLOG_URL = "issuedayissue.blogspot.com"
@@ -72,6 +73,59 @@ def get_blog_id(service) -> str:
 
 
 # ---------- ledger ----------
+
+def load_url_map(path: Path | None = None) -> dict:
+    path = path or URL_MAP
+    if not path.exists():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def save_url_map(url_map: dict, path: Path | None = None) -> None:
+    path = path or URL_MAP
+    path.write_text(json.dumps(url_map, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def _related_section(content: str, current_name: str, url_map: dict) -> str:
+    """url_map에서 현재 글과 키워드가 겹치는 관련 글 2~3개를 찾아 HTML 섹션 반환."""
+    if not url_map:
+        return ""
+    current_words = set(current_name.lower().replace("-", " ").replace("_", " ").split())
+    # also use content words
+    import re as _re
+    content_words = set(_re.findall(r"[가-힣A-Za-z0-9]+", content.lower()))
+    candidates = []
+    for name, u in url_map.items():
+        if name == current_name or not u:
+            continue
+        # title: prefer <title> from local file
+        title = name.replace("-", " ").replace("_", " ").replace(".html", "")
+        local = HERE.parent / "posts" / name
+        if local.exists():
+            try:
+                import re as _re2
+                m = _re2.search(r"<title>(.*?)</title>", local.read_text(encoding="utf-8"), _re2.S)
+                if m:
+                    title = m.group(1).strip()
+            except OSError:
+                pass
+        name_words = set(name.lower().replace("-", " ").replace("_", " ").split())
+        # also content words of candidate post title
+        title_words = set(_re.findall(r"[가-힣A-Za-z0-9]+", title.lower()))
+        overlap = len((current_words | content_words) & (name_words | title_words))
+        if overlap >= 1:
+            candidates.append((overlap, title, u))
+    candidates.sort(reverse=True)
+    picks = candidates[:3]
+    if not picks:
+        return ""
+    items = "".join(f'<li><a href="{u}" target="_blank" rel="noopener">{t}</a></li>' for _, t, u in picks)
+    return "\\n<h2>관련 글</h2>\\n<ul>\\n" + items + "\\n</ul>\\n"
+
 
 def load_ledger(path: Path | None = None) -> list[dict]:
     path = path or LEDGER
@@ -229,10 +283,19 @@ def publish_one(service, blog_id, path, html, *, draft, title=None, labels=None)
     content, extracted_title, description = parse_html(html, path.stem)
     final_title = title or extracted_title
     content = _inject_seo(content, final_title, description)
+    # 내부 링크 자동 삽입
+    url_map = load_url_map()
+    related = _related_section(content, path.name, url_map)
+    if related:
+        content = content.rstrip() + "\\n" + related
     body = {"kind": "blogger#post", "title": final_title, "content": content}
     if labels:
         body["labels"] = labels
     post = service.posts().insert(blogId=blog_id, body=body, isDraft=draft).execute()
+    # url_map 갱신
+    if post.get("url"):
+        url_map[path.name] = post["url"]
+        save_url_map(url_map)
     expected = "DRAFT" if draft else "LIVE"
     if post.get("status") != expected:
         raise RuntimeError(f"발행 상태 확인 실패: 예상 {expected}, 실제 {post.get('status', '?')}")
@@ -248,10 +311,17 @@ def update_one(service, blog_id, path, html, post_id, *, title=None, labels=None
     content, extracted_title, description = parse_html(html, path.stem)
     final_title = title or extracted_title
     content = _inject_seo(content, final_title, description)
+    url_map = load_url_map()
+    related = _related_section(content, path.name, url_map)
+    if related:
+        content = content.rstrip() + "\\n" + related
     body = {"kind": "blogger#post", "title": final_title, "content": content}
     if labels:
         body["labels"] = labels
     post = service.posts().update(blogId=blog_id, postId=post_id, body=body, publish=False).execute()
+    if post.get("url"):
+        url_map[path.name] = post["url"]
+        save_url_map(url_map)
     if publish:
         post = service.posts().publish(blogId=blog_id, postId=post_id).execute()
     state = "초안" if post.get("status") == "DRAFT" else post.get("status", "?")
