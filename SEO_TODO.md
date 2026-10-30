@@ -11,7 +11,7 @@
 
 - [x] **2. automation/curate.py CURATE_PROMPT에 SEO 지시 추가**
   - 제목 키워드 앞쪽 배치, 메타 description 키워드 포함, 첫 문단 직접 답변, H2 키워드 변형, FAQ 검색 의도 기반
-  - 커밋: (미완료)
+  - 커밋: 4207d11
 
 - [ ] **3. automation/publish.py에 SEO 태그 자동 삽입**
   - parse_html에서 title/description 추출 → JSON-LD + OG + Canonical 자동 삽입
