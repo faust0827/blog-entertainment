@@ -10,7 +10,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 BASE = "https://mlbpark.donga.com"
-BEST_URL = f"{BASE}/mp/b.php?b=humor"  # humor board recent
+BEST_URL = f"{BASE}/mp/b.php"  # main list (recent)
 OUTPUT_DIR = Path(__file__).resolve().parent.parent / "data" / "raw"
 
 
@@ -61,7 +61,6 @@ def collect() -> list[Post]:
                 continue
             if "notice" in h or "b=notice" in h:
                 continue
-            # skip notice titles
             if any(k in t for k in ["공지", "말머리", "업데이트", "🛠", "🚨", "⚾", "필독"]):
                 continue
             links.append({"url": h, "title": t})
@@ -78,8 +77,8 @@ def collect() -> list[Post]:
         for item in links:
             try:
                 print(f"  Fetching: {item['title'][:50]}...")
-                page.goto(item["url"], wait_until="domcontentloaded", timeout=30000)
-                page.wait_for_timeout(3000)
+                page.goto(item["url"], wait_until="domcontentloaded", timeout=15000)
+                page.wait_for_timeout(1500)
                 post = Post(url=item["url"], collected_at=datetime.now().isoformat())
                 post.title = item["title"]
 
