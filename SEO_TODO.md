@@ -17,7 +17,7 @@
   - parse_html에서 title/description 추출 → JSON-LD + OG + Canonical 자동 삽입
   - 커밋: 6d622db
 
-- [ ] **4. 기존 글(posts/)에 SEO 태그 소급 적용**
+- [x] **4. 기존 글(posts/)에 SEO 태그 소급 적용**
   - 4개 기존 글에 SEO 태그 추가
   - 커밋: 6d622db
 
