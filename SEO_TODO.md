@@ -15,11 +15,11 @@
 
 - [x] **3. automation/publish.py에 SEO 태그 자동 삽입**
   - parse_html에서 title/description 추출 → JSON-LD + OG + Canonical 자동 삽입
-  - 커밋: (미완료)
+  - 커밋: 6d622db
 
 - [ ] **4. 기존 글(posts/)에 SEO 태그 소급 적용**
   - 4개 기존 글에 SEO 태그 추가
-  - 커밋: (미완료)
+  - 커밋: 6d622db
 
 - [ ] **5. gates.py에 SEO 검사 항목 추가**
   - 메타 description 키워드, H2 최소 2개, JSON-LD 존재 여부
