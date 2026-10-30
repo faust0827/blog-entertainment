@@ -375,6 +375,7 @@ def main() -> int:
     if failures:
         print(f"실패: {len(failures)}/{len(contents)}개", file=sys.stderr)
         return 1
+    print("\\n색인 요청: .venv/bin/python automation/submit_index.py <발행된 URL>")
     return 0
 
 
