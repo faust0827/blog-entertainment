@@ -205,9 +205,31 @@ def print_search_description(description):
 
 # ---------- publish helpers ----------
 
+def _inject_seo(content: str, title: str, description: str | None) -> str:
+    """본문에 JSON-LD 구조화 데이터(Article)를 삽입 (SEO). 이미 있으면 건너뜀."""
+    if "application/ld+json" in content:
+        return content
+    from datetime import date
+    import json as _json
+    payload = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": title,
+        "datePublished": date.today().isoformat(),
+        "author": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"},
+        "publisher": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"},
+    }
+    if description:
+        payload["description"] = description
+    script = '<script type="application/ld+json">' + _json.dumps(payload, ensure_ascii=False) + "</script>"
+    return content.rstrip() + "\n" + script
+
+
 def publish_one(service, blog_id, path, html, *, draft, title=None, labels=None):
     content, extracted_title, description = parse_html(html, path.stem)
-    body = {"kind": "blogger#post", "title": title or extracted_title, "content": content}
+    final_title = title or extracted_title
+    content = _inject_seo(content, final_title, description)
+    body = {"kind": "blogger#post", "title": final_title, "content": content}
     if labels:
         body["labels"] = labels
     post = service.posts().insert(blogId=blog_id, body=body, isDraft=draft).execute()
@@ -224,7 +246,9 @@ def publish_one(service, blog_id, path, html, *, draft, title=None, labels=None)
 
 def update_one(service, blog_id, path, html, post_id, *, title=None, labels=None, publish=False):
     content, extracted_title, description = parse_html(html, path.stem)
-    body = {"kind": "blogger#post", "title": title or extracted_title, "content": content}
+    final_title = title or extracted_title
+    content = _inject_seo(content, final_title, description)
+    body = {"kind": "blogger#post", "title": final_title, "content": content}
     if labels:
         body["labels"] = labels
     post = service.posts().update(blogId=blog_id, postId=post_id, body=body, publish=False).execute()
@@ -244,7 +268,9 @@ def update_one(service, blog_id, path, html, post_id, *, title=None, labels=None
 
 def publish_page(service, blog_id, path, html, *, title=None):
     content, extracted_title, description = parse_html(html, path.stem)
-    body = {"kind": "blogger#page", "title": title or extracted_title, "content": content}
+    final_title = title or extracted_title
+    content = _inject_seo(content, final_title, description)
+    body = {"kind": "blogger#page", "title": final_title, "content": content}
     page = service.pages().insert(blogId=blog_id, body=body, isDraft=False).execute()
     print(f"[페이지] {page['title']}")
     print(f"  URL: {page.get('url', '?')}")
