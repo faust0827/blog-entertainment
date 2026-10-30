@@ -20,7 +20,7 @@ description: Use this skill whenever the user asks to write, draft, or create a 
 
 ## 글 구조 (templates/post-template.md 준수)
 
-1. 제목: `[화제] {주제 한 줄} — {커뮤니티 반응 요약}`
+1. 제목: `{주제 한 줄} — {커뮤니티 반응 요약}`
 2. 첫 문단: 핵심 요약 (3~4줄 이내, 트렌드 리포터 톤)
 3. `## 무슨 일이 있었나` — 원글 요약 3~5문장, 직접 인용 5문장/500자 이하, 원문 링크 필수
 4. `## 커뮤니티 반응` — 긍정/부정/논쟁 비율 + 대표 반응 요약 3~5개 (댓글 원문 복사 금지)
@@ -36,6 +36,7 @@ description: Use this skill whenever the user asks to write, draft, or create a 
 - AI 해설·분석 단락: 1개 이상 필수
 - 분량: 1,000자 이상
 - 이미지: 직접 삽입 금지. 원본 이미지 URL 링크는 허용 (출처 참고용).
+- 이미지 텍스트를 인용할 때 'OCR', '추출', '텍스트 인식' 등의 메타 표현 사용 금지. 자연스럽게 내용으로만 서술.
 - 민감 콘텐츠 제외: 정치·종교·성인·혐오·개인정보
 - 저작권 이미지 제외
 
