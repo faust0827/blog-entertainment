@@ -7,7 +7,7 @@
 
 - [x] **1. templates/post-template.md에 SEO 태그 블록 추가**
   - Open Graph, Canonical, JSON-LD(Article) 태그 블록
-  - 커밋: (진행 중)
+  - 커밋: 8150c18
 
 - [ ] **2. automation/curate.py CURATE_PROMPT에 SEO 지시 추가**
   - 제목 키워드 앞쪽 배치, 메타 description 키워드 포함, 첫 문단 직접 답변, H2 키워드 변형, FAQ 검색 의도 기반
