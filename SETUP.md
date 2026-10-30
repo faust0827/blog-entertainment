@@ -356,6 +356,26 @@ blog-entertainment/
 
 ---
 
+## Google Analytics 4 (GA4) 연동 (선택)
+
+1. https://analytics.google.com → "측정 시작" → 계정/속성 생성
+2. "웹" 선택 → URL: `https://issuedayissue.blogspot.com/`
+3. "측정 ID" (G-XXXXXXXXXX) 복사
+4. Blogger 대시보드 → **테마 → HTML 편집** → `</head>` 직전에 아래 코드 삽입:
+   ```html
+   <!-- Google tag (gtag.js) -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+   <script>
+     window.dataLayer = window.dataLayer || [];
+     function gtag(){dataLayer.push(arguments);}
+     gtag('js', new Date());
+     gtag('config', 'G-XXXXXXXXXX');
+   </script>
+   ```
+5. **저장** → 24~48시간 후 GA4 대시보드에서 데이터 확인
+
+---
+
 ## 빠른 참조 (치트시트)
 
 ```bash

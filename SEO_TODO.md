@@ -25,7 +25,7 @@
   - 메타 description 키워드, H2 최소 2개, JSON-LD 존재 여부
   - 커밋: b8103ee
 
-- [ ] **6. Google Analytics 4 연동 (선택)**
+- [x] **6. Google Analytics 4 연동 (선택)**
   - Blogger 테마에 GA4 스크립트 추가 가이드
   - 커밋: f972e98
 
