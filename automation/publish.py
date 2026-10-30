@@ -90,10 +90,18 @@ def save_url_map(url_map: dict, path: Path | None = None) -> None:
     path.write_text(json.dumps(url_map, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def _related_section(content: str, current_name: str, url_map: dict) -> str:
-    """url_map에서 현재 글과 키워드가 겹치는 관련 글 2~3개를 찾아 HTML 섹션 반환."""
+def _strip_related(content: str) -> str:
+    """기존 '관련 글' 섹션 제거 (중복/구버전 제거)."""
+    import re as _re
+    content = _re.sub(r"\\n*<h2>관련 글</h2>\\n*<ul>.*?</ul>\\n*", "\\n", content, flags=_re.S)
+    return content.rstrip()
+
+
+def _inject_related(content: str, current_name: str, url_map: dict) -> str:
+    """기존 관련 글 섹션을 제거하고, url_map 기반으로 새 관련 글 섹션을 삽입."""
+    content = _strip_related(content)
     if not url_map:
-        return ""
+        return content
     current_words = set(current_name.lower().replace("-", " ").replace("_", " ").split())
     # also use content words
     import re as _re
@@ -122,9 +130,9 @@ def _related_section(content: str, current_name: str, url_map: dict) -> str:
     candidates.sort(reverse=True)
     picks = candidates[:3]
     if not picks:
-        return ""
+        return content
     items = "".join(f'<li><a href="{u}" target="_blank" rel="noopener">{t}</a></li>' for _, t, u in picks)
-    return "\\n<h2>관련 글</h2>\\n<ul>\\n" + items + "\\n</ul>\\n"
+    return content.rstrip() + "\\n\\n<h2>관련 글</h2>\\n<ul>\\n" + items + "\\n</ul>\\n"
 
 
 def load_ledger(path: Path | None = None) -> list[dict]:
@@ -283,11 +291,9 @@ def publish_one(service, blog_id, path, html, *, draft, title=None, labels=None)
     content, extracted_title, description = parse_html(html, path.stem)
     final_title = title or extracted_title
     content = _inject_seo(content, final_title, description)
-    # 내부 링크 자동 삽입
+    # 내부 링크 자동 삽입 (기존 관련 글 섹션 제거 후 재삽입)
     url_map = load_url_map()
-    related = _related_section(content, path.name, url_map)
-    if related:
-        content = content.rstrip() + "\\n" + related
+    content = _inject_related(content, path.name, url_map)
     body = {"kind": "blogger#post", "title": final_title, "content": content}
     if labels:
         body["labels"] = labels
@@ -312,9 +318,7 @@ def update_one(service, blog_id, path, html, post_id, *, title=None, labels=None
     final_title = title or extracted_title
     content = _inject_seo(content, final_title, description)
     url_map = load_url_map()
-    related = _related_section(content, path.name, url_map)
-    if related:
-        content = content.rstrip() + "\\n" + related
+    content = _inject_related(content, path.name, url_map)
     body = {"kind": "blogger#post", "title": final_title, "content": content}
     if labels:
         body["labels"] = labels
