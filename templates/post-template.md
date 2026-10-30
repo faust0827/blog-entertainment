@@ -21,7 +21,7 @@
 
 ```html
 <meta name="description" content="메타 설명 (30~120자, 핵심 키워드 포함)">
-<title>[화제] 제목 — 커뮤니티 반응 요약</title>
+<title>제목 — 커뮤니티 반응 요약</title>
 <!-- Open Graph -->
 <meta property="og:title" content="제목">
 <meta property="og:description" content="메타 설명">
@@ -45,7 +45,7 @@
 ## 1. 글 구조 (큐레이션 정보형)
 
 ```markdown
-# [화제] {주제 한 줄} — {커뮤니티 반응 요약}
+# {주제 한 줄} — {커뮤니티 반응 요약}
 
 > **핵심 요약** (첫 문단, 3~4줄 이내)
 > 무슨 일이 있었고, 커뮤니티 반응은 어땠는지 한눈에.
