@@ -1,42 +1,76 @@
 #!/usr/bin/env python3
-"""승인 후 자동 공개 파이프라인 (dry-run 기본)."""
+"""'글써줘' 한 번에 실행: 크롤링 → 큐레이션 → 게이트 → 초안 발행.
 
+사용법:
+  .venv/bin/python automation/auto_post.py          # 전체 파이프라인
+  .venv/bin/python automation/auto_post.py --no-crawl  # 크롤링 건너뛰기
+  .venv/bin/python automation/auto_post.py --publish   # 게이트 통과 시 공개 발행 (주의)
+"""
 import argparse
-import os
+import json
 import subprocess
 import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
+POSTS = ROOT / "posts"
+RAW = ROOT / "data" / "raw"
+PYTHON = str(ROOT / ".venv" / "bin" / "python")
+
+
+def run(cmd, **kw):
+    print(f"$ {' '.join(cmd)}")
+    return subprocess.run(cmd, **kw)
+
+
+def latest_post() -> Path | None:
+    posts = sorted(POSTS.glob("*.html"), key=lambda p: p.stat().st_mtime, reverse=True)
+    return posts[0] if posts else None
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("file", type=Path)
-    parser.add_argument("--labels", help="라벨(쉼표 구분)")
-    parser.add_argument("--dry-run", action="store_true", help="게이트만 점검, 발행하지 않음")
-    args = parser.parse_args()
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--no-crawl", action="store_true")
+    ap.add_argument("--draft", action="store_true", help="초안으로만 저장 (기본은 공개 발행)")
+    args = ap.parse_args()
 
-    if not args.file.is_file():
-        print(f"파일 없음: {args.file}", file=sys.stderr)
+    # 1. 크롤링
+    if not args.no_crawl:
+        r = run([PYTHON, str(HERE / "crawler.py")], cwd=str(ROOT))
+        if r.returncode != 0:
+            print("크롤링 실패", file=sys.stderr)
+
+    # 2. 큐레이션 (API 키 있을 때만)
+    import os
+    if os.environ.get("OPENAI_API_KEY") or os.environ.get("ANTHROPIC_API_KEY"):
+        r = run([PYTHON, str(HERE / "curate.py")], cwd=str(ROOT))
+        if r.returncode != 0:
+            print("큐레이션 실패", file=sys.stderr)
+    else:
+        print("API 키 없음 → 큐레이션 건너뜀 (기존 posts/ 사용)")
+
+    # 3. 최신 글 선택
+    post = latest_post()
+    if not post:
+        print("발행할 글이 없습니다.", file=sys.stderr)
         return 1
+    print(f"\n대상 글: {post}")
 
-    cmd = [sys.executable, str(HERE / "publish.py"), str(args.file), "--check-only"]
-    result = subprocess.run(cmd, cwd=ROOT)
-    if result.returncode != 0:
-        print("게이트 미통과 — 발행 차단", file=sys.stderr)
+    # 4. 게이트 점검
+    r = run([PYTHON, str(HERE / "publish.py"), str(post), "--check-only"], cwd=str(ROOT))
+    if r.returncode != 0:
+        print("게이트 미통과 → 발행 중단", file=sys.stderr)
         return 3
 
-    if args.dry_run or os.environ.get("AUTO_PUBLISH_ENABLED", "").strip() != "1":
-        print("dry-run: 게이트 통과. AUTO_PUBLISH_ENABLED=1 설정 시 공개 발행합니다.")
-        return 0
-
-    cmd = [sys.executable, str(HERE / "publish.py"), str(args.file), "--publish", "--auto"]
-    if args.labels:
-        cmd += ["--labels", args.labels]
-    result = subprocess.run(cmd, cwd=ROOT)
-    return result.returncode
+    # 5. 발행 (기본: 공개 발행)
+    cmd = [PYTHON, str(HERE / "publish.py"), str(post)]
+    if args.draft:
+        cmd += ["--draft"]
+    else:
+        cmd += ["--publish", "--reviewed"]
+    r = run(cmd, cwd=str(ROOT))
+    return r.returncode
 
 
 if __name__ == "__main__":

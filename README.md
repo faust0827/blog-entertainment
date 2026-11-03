@@ -36,7 +36,7 @@ blog-entertainment/
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install requests beautifulsoup4 openai anthropic playwright
+pip install requests beautifulsoup4 openai anthropic playwright google-api-python-client google-auth-oauthlib
 playwright install chromium
 ```
 
@@ -102,8 +102,18 @@ python automation/publish.py posts/slug.html --schedule 2026-11-07T10:30:00+09:0
 | 커뮤니티 | 인기 기준 | 난이도 |
 |---|---|---|
 | 오늘의 유머 | 추천 30+ | 중간 |
-| 개 drip | 추천 50+ | 중간 |
-| FM코리아 | 추천 100+ | 낮음 |
+| 웃긴대학 | 일간 베스트 | 중간 |
+| 개 drip | 붐업 베스트 | 중간 |
+| FM코리아 | 포텐터짐 | 중간 |
+| 더쿠 | 핫 게시글 | 중간 |
+| 루리웹 | 베스트 게시판 | 중간 |
+| 클리앙 | park 게시판 | 중간 |
+| 뽐뿌 | 자유게시판 | 중간 |
+| 보배드림 | 자유게시판 | 중간 |
+| 인스티즈 | 인기 게시글 | 중간 |
+| 인벤 | 웃긴 짤방 | 중간 |
+| 엠팍 | 유머 게시판 | 중간 |
+| 아카라이브 | 베스트 라이브 | 중간 |
 
 ## 수익 모델
 

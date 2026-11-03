@@ -2,41 +2,47 @@
 """Blogger 글 발행 스크립트 (커뮤니티 큐레이션 블로그용).
 
 사용법:
-  python3 publish.py posts/sample.html --check-only
-  python3 publish.py posts/sample.html --draft
-  python3 publish.py posts/sample.html --publish --reviewed
+  python automation/publish.py posts/sample.html --check-only          # 게이트 점검만
+  python automation/publish.py posts/sample.html                       # 초안(draft) 발행
+  python automation/publish.py posts/sample.html --publish --reviewed  # 검수 후 공개
+  python automation/publish.py posts/x.html --update POST_ID --reviewed
+  python automation/publish.py posts/slug.html --schedule 2026-11-07T10:30:00+09:00 --labels 연예이슈
+  python automation/publish.py posts/*.html --draft
+
+HTML 문서에서는 <body> 안의 콘텐츠만 발행한다. <title>은 제목으로 사용하고,
+description 메타는 수동 입력 안내에 사용한다.
+
+종료 코드: 0 성공 · 1 파일/API 오류 · 2 인자 오류 · 3 게이트 미통과
 """
 
 import argparse
-import os
+import json
 import sys
+from datetime import datetime, timedelta, timezone
 from html.parser import HTMLParser
 from pathlib import Path
 
-from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
-from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
-
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-import gates
+try:
+    from automation import gates
+except ImportError:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import gates
 
 SCOPES = ["https://www.googleapis.com/auth/blogger"]
 HERE = Path(__file__).resolve().parent
 CLIENT_SECRET = HERE / "client_secret.json"
 TOKEN = HERE / "token.json"
 LEDGER = HERE / "schedule_ledger.json"
-DEFAULT_BLOG_URL = "issuedayissue.blogspot.com"
+URL_MAP = HERE / "url_map.json"
+KST = timezone(timedelta(hours=9))
 
-AD_SNIPPET = (
-    '<div style="text-align:center;margin:16px 0;">'
-    '<script src="https://ads-partners.coupang.com/g.js"></script>'
-    '<script>new PartnersCoupang.G({"id":1044539,"template":"carousel","trackingCode":"AF3610050","width":"300","height":"250","tsource":""});</script>'
-    "</div>"
-)
+DEFAULT_BLOG_URL = "issuedayissue.blogspot.com"
 
 
 def load_credentials():
+    from google.auth.transport.requests import Request
+    from google.oauth2.credentials import Credentials
+
     creds = None
     if TOKEN.exists():
         creds = Credentials.from_authorized_user_file(str(TOKEN), SCOPES)
@@ -49,23 +55,139 @@ def load_credentials():
     return creds
 
 
-def get_blog_id(service, preferred: str = "") -> str:
+def get_blog_id(service) -> str:
     blogs = service.blogs().listByUser(userId="self").execute()
-    items = blogs.get("items", []) or blogs.get("blogs", [])
+    items = blogs.get("items", [])
     if not items:
         sys.exit("연결된 블로그가 없습니다.")
     if len(items) == 1:
         return items[0]["id"]
-    if preferred:
-        for b in items:
-            if preferred in b.get("url", ""):
-                print(f"블로그 자동 선택: {b['name']} ({b['url']})")
-                return b["id"]
+    for b in items:
+        if DEFAULT_BLOG_URL in b.get("url", ""):
+            print(f"블로그 자동 선택: {b['name']} ({b['url']})")
+            return b["id"]
     print("여러 블로그가 있습니다. --blog-id를 지정하세요:")
     for b in items:
         print(f"  {b['id']}  {b['name']}  {b['url']}")
     sys.exit(1)
 
+
+# ---------- ledger ----------
+
+def load_url_map(path: Path | None = None) -> dict:
+    path = path or URL_MAP
+    if not path.exists():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def save_url_map(url_map: dict, path: Path | None = None) -> None:
+    path = path or URL_MAP
+    path.write_text(json.dumps(url_map, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def _strip_related(content: str) -> str:
+    """기존 '관련 글' 섹션 제거 (중복/구버전 제거)."""
+    import re as _re
+    content = _re.sub(r"\\n*<h2>관련 글</h2>\\n*<ul>.*?</ul>\\n*", "\\n", content, flags=_re.S)
+    return content.rstrip()
+
+
+def _inject_related(content: str, current_name: str, url_map: dict) -> str:
+    """기존 관련 글 섹션을 제거하고, url_map 기반으로 새 관련 글 섹션을 삽입."""
+    content = _strip_related(content)
+    if not url_map:
+        return content
+    current_words = set(current_name.lower().replace("-", " ").replace("_", " ").split())
+    # also use content words
+    import re as _re
+    content_words = set(_re.findall(r"[가-힣A-Za-z0-9]+", content.lower()))
+    candidates = []
+    for name, u in url_map.items():
+        if name == current_name or not u:
+            continue
+        # title: prefer <title> from local file
+        title = name.replace("-", " ").replace("_", " ").replace(".html", "")
+        local = HERE.parent / "posts" / name
+        if local.exists():
+            try:
+                import re as _re2
+                m = _re2.search(r"<title>(.*?)</title>", local.read_text(encoding="utf-8"), _re2.S)
+                if m:
+                    title = m.group(1).strip()
+            except OSError:
+                pass
+        name_words = set(name.lower().replace("-", " ").replace("_", " ").split())
+        # also content words of candidate post title
+        title_words = set(_re.findall(r"[가-힣A-Za-z0-9]+", title.lower()))
+        overlap = len((current_words | content_words) & (name_words | title_words))
+        if overlap >= 1:
+            candidates.append((overlap, title, u))
+    candidates.sort(reverse=True)
+    picks = candidates[:3]
+    if not picks:
+        return content
+    items = "".join(f'<li><a href="{u}" target="_blank" rel="noopener">{t}</a></li>' for _, t, u in picks)
+    return content.rstrip() + "\\n\\n<h2>관련 글</h2>\\n<ul>\\n" + items + "\\n</ul>\\n"
+
+
+def load_ledger(path: Path | None = None) -> list[dict]:
+    path = path or LEDGER
+    if not path.exists():
+        return []
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return []
+    entries = data.get("entries", [])
+    return entries if isinstance(entries, list) else []
+
+
+def save_ledger(entries: list[dict], path: Path | None = None) -> None:
+    path = path or LEDGER
+    path.write_text(json.dumps({"entries": entries}, ensure_ascii=False, indent=1), encoding="utf-8")
+
+
+def count_scheduled_on(ledger: list[dict], date_iso: str, *, exclude_post_id: str | None = None) -> int:
+    count = 0
+    for entry in ledger:
+        if exclude_post_id is not None and str(entry.get("post_id", "")) == str(exclude_post_id):
+            continue
+        try:
+            day = datetime.fromisoformat(entry["publish_date"]).astimezone(KST).date().isoformat()
+        except (KeyError, TypeError, ValueError):
+            continue
+        if day == date_iso:
+            count += 1
+    return count
+
+
+def schedule_post(service, blog_id: str, post_id: str, publish_date: str, ledger_path: Path | None = None):
+    ledger_path = ledger_path or LEDGER
+    post = service.posts().publish(blogId=blog_id, postId=post_id, publishDate=publish_date).execute()
+    if post.get("status") != "SCHEDULED":
+        raise RuntimeError(f"예약 상태 확인 실패: 예상 SCHEDULED, 실제 {post.get('status', '?')}")
+    ledger = load_ledger(ledger_path)
+    scheduled_post_id = str(post.get("id", post_id))
+    ledger = [e for e in ledger if str(e.get("post_id", "")) != scheduled_post_id]
+    ledger.append({
+        "post_id": scheduled_post_id,
+        "title": post.get("title", ""),
+        "publish_date": publish_date,
+        "scheduled_at": datetime.now(KST).isoformat(timespec="seconds"),
+    })
+    save_ledger(ledger, ledger_path)
+    print(f"[예약] {post.get('title', '')}")
+    print(f"  발행 예정: {publish_date}")
+    print(f"  ID : {post.get('id', post_id)}")
+    return post
+
+
+# ---------- HTML parsing ----------
 
 class _BloggerContentParser(HTMLParser):
     def __init__(self) -> None:
@@ -126,17 +248,16 @@ class _BloggerContentParser(HTMLParser):
             self.body_parts.append(f"<!--{data}-->")
 
 
-def parse_html(html, fallback_title):
+def parse_html(html: str, fallback_title: str):
     from html import unescape
 
     parser = _BloggerContentParser()
     parser.feed(html)
     parser.close()
     content = "".join(parser.body_parts).strip() if parser.found_body else html.strip()
-    title = " ".join(parser.title_parts).strip() or fallback_title
-    title = " ".join(title.split())
+    title = " ".join("".join(parser.title_parts).split()) or fallback_title
     description = parser.description.strip() if parser.description else None
-    return content, unescape(title), description
+    return content, title, description
 
 
 def print_search_description(description):
@@ -144,24 +265,46 @@ def print_search_description(description):
         print(f"  검색 설명(글 설정에 수동 입력): {description}")
 
 
-def _add_blank_targets(content: str) -> str:
-    def repl(m):
-        tag = m.group(0)
-        if "target=" in tag:
-            return tag
-        return tag.replace("<a ", '<a target="_blank" ', 1)
-    return re.sub(r"<a\s+[^>]*>", repl, content)
+# ---------- publish helpers ----------
+
+def _inject_seo(content: str, title: str, description: str | None) -> str:
+    """본문에 JSON-LD 구조화 데이터(Article)를 삽입 (SEO). 이미 있으면 건너뜀."""
+    if "application/ld+json" in content:
+        return content
+    from datetime import date
+    import json as _json
+    payload = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": title,
+        "datePublished": date.today().isoformat(),
+        "author": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"},
+        "publisher": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"},
+    }
+    if description:
+        payload["description"] = description
+    script = '<script type="application/ld+json">' + _json.dumps(payload, ensure_ascii=False) + "</script>"
+    return content.rstrip() + "\n" + script
 
 
-def publish_one(service, blog_id, path, html, *, draft, title, labels):
+def publish_one(service, blog_id, path, html, *, draft, title=None, labels=None):
     content, extracted_title, description = parse_html(html, path.stem)
-    content = _add_blank_targets(content)
-    if AD_SNIPPET not in content:
-        content = content + "\n" + AD_SNIPPET
-    body = {"kind": "blogger#post", "title": title or extracted_title, "content": content}
+    final_title = title or extracted_title
+    content = _inject_seo(content, final_title, description)
+    # 내부 링크 자동 삽입 (기존 관련 글 섹션 제거 후 재삽입)
+    url_map = load_url_map()
+    content = _inject_related(content, path.name, url_map)
+    body = {"kind": "blogger#post", "title": final_title, "content": content}
     if labels:
         body["labels"] = labels
     post = service.posts().insert(blogId=blog_id, body=body, isDraft=draft).execute()
+    # url_map 갱신
+    if post.get("url"):
+        url_map[path.name] = post["url"]
+        save_url_map(url_map)
+    expected = "DRAFT" if draft else "LIVE"
+    if post.get("status") != expected:
+        raise RuntimeError(f"발행 상태 확인 실패: 예상 {expected}, 실제 {post.get('status', '?')}")
     state = "초안" if post.get("status") == "DRAFT" else post.get("status", "?")
     print(f"[{state}] {post['title']}")
     print(f"  URL: {post.get('url', '(초안이라 공개 URL 없음)')}")
@@ -170,15 +313,19 @@ def publish_one(service, blog_id, path, html, *, draft, title, labels):
     return post
 
 
-def update_one(service, blog_id, path, html, post_id, *, title, labels, publish=False):
+def update_one(service, blog_id, path, html, post_id, *, title=None, labels=None, publish=False):
     content, extracted_title, description = parse_html(html, path.stem)
-    content = _add_blank_targets(content)
-    if AD_SNIPPET not in content:
-        content = content + "\n" + AD_SNIPPET
-    body = {"kind": "blogger#post", "title": title or extracted_title, "content": content}
+    final_title = title or extracted_title
+    content = _inject_seo(content, final_title, description)
+    url_map = load_url_map()
+    content = _inject_related(content, path.name, url_map)
+    body = {"kind": "blogger#post", "title": final_title, "content": content}
     if labels:
         body["labels"] = labels
     post = service.posts().update(blogId=blog_id, postId=post_id, body=body, publish=False).execute()
+    if post.get("url"):
+        url_map[path.name] = post["url"]
+        save_url_map(url_map)
     if publish:
         post = service.posts().publish(blogId=blog_id, postId=post_id).execute()
     state = "초안" if post.get("status") == "DRAFT" else post.get("status", "?")
@@ -187,16 +334,17 @@ def update_one(service, blog_id, path, html, post_id, *, title, labels, publish=
     if post.get("url"):
         print(f"  URL: {post['url']}")
     print(f"  ID : {post['id']}")
+    if publish and post.get("status") != "LIVE":
+        raise RuntimeError(f"공개 전환 실패: 예상 LIVE, 실제 {post.get('status', '?')}")
     print_search_description(description)
     return post
 
 
-def publish_page(service, blog_id, path, html, *, title):
+def publish_page(service, blog_id, path, html, *, title=None):
     content, extracted_title, description = parse_html(html, path.stem)
-    content = _add_blank_targets(content)
-    if AD_SNIPPET not in content:
-        content = content + "\n" + AD_SNIPPET
-    body = {"kind": "blogger#page", "title": title or extracted_title, "content": content}
+    final_title = title or extracted_title
+    content = _inject_seo(content, final_title, description)
+    body = {"kind": "blogger#page", "title": final_title, "content": content}
     page = service.pages().insert(blogId=blog_id, body=body, isDraft=False).execute()
     print(f"[페이지] {page['title']}")
     print(f"  URL: {page.get('url', '?')}")
@@ -205,57 +353,26 @@ def publish_page(service, blog_id, path, html, *, title):
     return page
 
 
-def load_ledger():
-    if not LEDGER.exists():
-        return []
-    try:
-        data = __import__("json").loads(LEDGER.read_text(encoding="utf-8"))
-    except Exception:
-        return []
-    entries = data.get("entries", [])
-    return entries if isinstance(entries, list) else []
-
-
-def schedule_post(service, blog_id, post_id, publish_date):
-    import json
-    from datetime import datetime, timezone, timedelta
-
-    post = service.posts().publish(blogId=blog_id, postId=post_id, publishDate=publish_date).execute()
-    if post.get("status") != "SCHEDULED":
-        raise RuntimeError(f"예약 상태 확인 실패: 예상 SCHEDULED, 실제 {post.get('status', '?')}")
-    ledger = load_ledger()
-    scheduled_id = str(post.get("id", post_id))
-    ledger = [e for e in ledger if str(e.get("post_id", "")) != scheduled_id]
-    ledger.append({"post_id": scheduled_id, "title": post.get("title", ""), "publish_date": publish_date,
-                   "scheduled_at": datetime.now().isoformat(timespec="seconds")})
-    LEDGER.write_text(__import__("json").dumps({"entries": ledger}, ensure_ascii=False, indent=1), encoding="utf-8")
-    print(f"[예약] {post.get('title', '')}")
-    print(f"  발행 예정: {publish_date}")
-    print(f"  ID : {post.get('id', post_id)}")
-    return post
-
-
-def run_gate_stage(path, html):
+def run_gate_for_file(path, html):
     results = gates.run_gates(html)
     print(gates.format_results(results, str(path)))
     return bool(gates.failed(results))
 
 
-def main():
+def main() -> int:
     parser = argparse.ArgumentParser(description="Blogger 글 발행")
-    parser.add_argument("files", nargs="+", type=Path)
-    parser.add_argument("--publish", action="store_true")
-    parser.add_argument("--draft", action="store_true")
-    parser.add_argument("--reviewed", action="store_true")
-    parser.add_argument("--title")
-    parser.add_argument("--labels")
-    parser.add_argument("--blog-id")
-    parser.add_argument("--page", action="store_true")
-    parser.add_argument("--update", metavar="POST_ID")
-    parser.add_argument("--gates", action="store_true")
-    parser.add_argument("--check-only", action="store_true")
-    parser.add_argument("--schedule", metavar="RFC3339")
-    parser.add_argument("--auto", action="store_true")
+    parser.add_argument("files", nargs="+", type=Path, help="발행할 HTML 파일")
+    parser.add_argument("--publish", action="store_true", help="공개 발행 (기본은 초안)")
+    parser.add_argument("--draft", action="store_true", help="초안으로 저장 (기본값)")
+    parser.add_argument("--reviewed", action="store_true", help="검수 완료 확인")
+    parser.add_argument("--title", help="제목 지정")
+    parser.add_argument("--labels", help="라벨(쉼표 구분)")
+    parser.add_argument("--blog-id", help="블로그 ID 지정")
+    parser.add_argument("--page", action="store_true", help="페이지로 발행")
+    parser.add_argument("--update", metavar="POST_ID", help="기존 글 갱신")
+    parser.add_argument("--gates", action="store_true", help="품질 게이트 실행")
+    parser.add_argument("--check-only", action="store_true", help="게이트 점검만")
+    parser.add_argument("--schedule", metavar="RFC3339", help="예약 발행 (예: 2026-11-07T10:30:00+09:00)")
     args = parser.parse_args()
 
     if args.publish and args.draft:
@@ -264,23 +381,20 @@ def main():
         parser.error("--update은 글에만 사용할 수 있습니다")
     if args.schedule and args.publish:
         parser.error("--schedule과 --publish는 함께 사용할 수 없습니다")
+
     schedule_date = None
     if args.schedule:
-        from datetime import datetime
         try:
             schedule_dt = datetime.fromisoformat(args.schedule)
         except ValueError:
             parser.error("--schedule은 RFC3339 형식이어야 합니다")
         if schedule_dt.tzinfo is None:
-            parser.error("--schedule에는 시간대가 필요합니다")
-    auto_enabled = os.environ.get("AUTO_PUBLISH_ENABLED", "").strip() == "1"
-    needs_reviewed = (args.publish or args.page or (args.update and not args.schedule)) and not (args.auto and auto_enabled)
+            parser.error("--schedule에는 시간대(+09:00 등)가 필요합니다")
+        schedule_date = schedule_dt.astimezone(KST).date().isoformat()
+
+    needs_reviewed = (args.publish or args.page or (args.update and not args.schedule))
     if needs_reviewed and not args.reviewed:
-        parser.error("즉시 공개 발행에는 --reviewed가 필요합니다")
-    if args.auto and not auto_enabled:
-        parser.error("AUTO_PUBLISH_ENABLED=1 필요")
-    if args.check_only and (args.publish or args.update or args.reviewed or args.draft or args.schedule):
-        parser.error("--check-only는 점검 전용입니다")
+        parser.error("즉시 공개 발행·페이지 발행·기존 글 즉시 공개에는 --reviewed가 필요합니다")
 
     missing = [p for p in args.files if not p.is_file()]
     if missing:
@@ -292,46 +406,38 @@ def main():
     for p in args.files:
         try:
             contents.append((p, p.read_text(encoding="utf-8")))
-        except Exception as e:
+        except (OSError, UnicodeError) as e:
             print(f"파일 읽기 실패: {p} — {e}", file=sys.stderr)
             return 1
 
-    will_live = args.publish or (args.page and not args.check_only)
-    will_schedule = bool(args.schedule) and not args.page
-    strict = will_live or will_schedule or args.gates or args.check_only
-
-    # check-only: no auth
-    if args.check_only:
-        blocked = []
+    strict = args.publish or args.page or args.gates or args.check_only or bool(args.schedule)
+    gate_blocked = []
+    if strict:
         for path, html in contents:
-            if run_gate_stage(path, html):
-                blocked.append(path)
-        if blocked:
-            print(f"게이트 미통과: {len(blocked)}개", file=sys.stderr)
+            if run_gate_for_file(path, html):
+                gate_blocked.append(path)
+        if gate_blocked:
+            print(f"게이트 미통과: {len(gate_blocked)}개", file=sys.stderr)
             return 3
-        return 0
+        if args.check_only:
+            return 0
 
     creds = load_credentials()
+    from googleapiclient.discovery import build
     service = build("blogger", "v3", credentials=creds)
-    blog_id = args.blog_id or get_blog_id(service, DEFAULT_BLOG_URL or "")
-    labels = [x.strip() for x in args.labels.split(",") if x.strip()] if args.labels else None
+    blog_id = args.blog_id or get_blog_id(service)
+    labels = [l.strip() for l in args.labels.split(",") if l.strip()] if args.labels else None
 
     failures = []
-    blocked = []
     for path, html in contents:
-        if strict and run_gate_stage(path, html):
-            print(f"게이트 미통과로 발행 보류: {path}", file=sys.stderr)
-            blocked.append(path)
-            failures.append(path)
-            continue
         try:
             if args.page:
                 publish_page(service, blog_id, path, html, title=args.title)
             elif args.update:
                 update_one(service, blog_id, path, html, args.update, title=args.title, labels=labels, publish=args.publish)
-                if will_schedule:
+                if args.schedule:
                     schedule_post(service, blog_id, args.update, args.schedule)
-            elif will_schedule:
+            elif args.schedule:
                 post = publish_one(service, blog_id, path, html, draft=True, title=args.title, labels=labels)
                 schedule_post(service, blog_id, post["id"], args.schedule)
             else:
@@ -342,7 +448,8 @@ def main():
 
     if failures:
         print(f"실패: {len(failures)}/{len(contents)}개", file=sys.stderr)
-        return 3 if blocked else 1
+        return 1
+    print("\\n색인 요청: .venv/bin/python automation/submit_index.py <발행된 URL>")
     return 0
 
 

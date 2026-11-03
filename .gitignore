@@ -20,3 +20,6 @@ Thumbs.db
 
 # OpenCode
 .opencode/
+
+# Machine-specific
+.machine_id

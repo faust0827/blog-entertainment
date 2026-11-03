@@ -45,7 +45,7 @@ def main() -> None:
     service = build("blogger", "v3", credentials=creds)
     blogs = service.blogs().listByUser(userId="self").execute()
     print("\n연결된 블로그:", flush=True)
-    for b in blogs.get("items", []) or blogs.get("blogs", []):
+    for b in blogs.get("items", []):
         print(f"  - 이름: {b['name']}", flush=True)
         print(f"    URL : {b['url']}", flush=True)
         print(f"    ID  : {b['id']}", flush=True)
