@@ -17,6 +17,8 @@ description 메타는 수동 입력 안내에 사용한다.
 
 import argparse
 import json
+import os
+import re
 import sys
 from datetime import datetime, timedelta, timezone
 from html.parser import HTMLParser

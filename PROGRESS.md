@@ -90,3 +90,12 @@
 - [X230] https://issuedayissue.blogspot.com/2026/10/humoruniv.html
   - [X230] 제목: [화제] 꿈꾸던 약국을 직접 차린 약사님 — humoruniv 반응 모음
   - [X230] 게이트 6/6 통과, LIVE
+
+### AdSense 대비 점검·보강 (2026-11-02)
+- [X230] 필수 페이지 4개 발행: 소개(/p/issueissue.html), 개인정보처리방침(/p/issueissue_01303993325.html), 문의(/p/issueissue_01623452620.html), 이용약관(/p/issueissue_0102540285.html)
+- [X230] `publish.py`에 누락된 `import re` 추가
+- [X230] `gates.py`에 아티팩트 검사 게이트 추가 (trailing quotes, truncated marker, base64 이미지)
+- [X230] `posts/2026-disability-meal-anonymous-donor.html` 깨진 base64 이미지 제거 및 오타 수정, 라이브 글 갱신
+- [X230] `posts/*.html` trailing `"""` 아티팩트 16개 일괄 제거
+- [X230] README의 존재하지 않는 `templates/blog-layout.xml` 참조 수정
+- 수동 필요: Blogger 메뉴에 페이지 링크 추가, robots.txt sitemap을 issuedayissue.blogspot.com으로 수정, Search Console 등록

@@ -15,13 +15,34 @@ SENSITIVE_KEYWORDS = [
     "자살", "자해", "극단적",
 ]
 
-MAX_DAILY = 3
+PROFANITY_KEYWORDS = [
+    "시발", "씨발", "ㅅㅂ", "병신", "ㅂㅅ", "존나", "지랄",
+    "개새", "개새끼", "미친놈", "미친년", "닥쳐", "꺼져",
+    "애미", "애비", "좆", "좆같", "fühl", "fuck", "shit",
+]
+
+RAW_SLANG_TOKENS = ["ㅋㅋ", "ㄷㄷ", "ㄹㅇ", "ㅇㅈ", "ㅇㅋ", "ㄹㅇㅋㅋ"]
+
+MAX_DAILY = 2
 
 
 def is_sensitive(title: str, body: str) -> bool:
     """민감 콘텐츠 여부 판별."""
     text = (title + " " + body).lower()
     return any(kw in text for kw in SENSITIVE_KEYWORDS)
+
+
+def is_profane(title: str, body: str) -> bool:
+    """욕설·비속어 포함 여부 판별."""
+    text = (title + " " + body).lower()
+    return any(kw in text for kw in PROFANITY_KEYWORDS)
+
+
+def is_raw_slang(title: str, body: str, threshold: int = 3) -> bool:
+    """원문 댓글의 인터넷 은어·자음체 과다 사용 여부."""
+    text = title + " " + body
+    count = sum(text.count(tok) for tok in RAW_SLANG_TOKENS)
+    return count >= threshold
 
 
 def is_duplicate(title: str, existing_titles: list[str], threshold: float = 0.6) -> bool:
@@ -47,6 +68,10 @@ def filter_posts(posts: list[dict], existing_titles: list[str] | None = None) ->
         title = post.get("title", "")
         body = post.get("body", "")
         if is_sensitive(title, body):
+            continue
+        if is_profane(title, body):
+            continue
+        if is_raw_slang(title, body):
             continue
         if is_duplicate(title, existing + [p.get("title", "") for p in result]):
             continue

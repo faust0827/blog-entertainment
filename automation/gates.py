@@ -10,6 +10,14 @@ MAX_QUOTE_CHARS = 500  # 원문 직접 인용 최대 500자
 MAX_QUOTE_SENTENCES = 5  # 원문 직접 인용 최대 5문장
 MIN_LENGTH = 1000  # 큐레이션은 1,000자 이상
 
+PROFANITY_TERMS = [
+    "시발", "씨발", "ㅅㅂ", "병신", "ㅂㅅ", "존나", "지랄",
+    "개새", "개새끼", "미친놈", "미친년", "닥쳐", "꺼져",
+    "애미", "애비", "좆", "fuck", "shit",
+]
+
+RAW_SLANG_TOKENS = ["ㅋㅋ", "ㄷㄷ", "ㄹㅇ", "ㅇㅈ", "ㅇㅋ"]
+
 
 @dataclass
 class GateResult:
@@ -81,6 +89,20 @@ def gate_length(content: str) -> GateResult:
     return GateResult("분량", True, f"{length}자")
 
 
+def gate_artifacts(content: str) -> GateResult:
+    """파일 아티팩트·깨진 이미지 금지."""
+    bad = []
+    if '"""' in content:
+        bad.append('trailing-quotes')
+    if '(truncated)' in content:
+        bad.append('truncated-marker')
+    if 'data:image' in content or 'base64' in content:
+        bad.append('base64-image')
+    if bad:
+        return GateResult("아티팩트", False, ", ".join(bad))
+    return GateResult("아티팩트", True, "정상")
+
+
 def gate_banned_phrases(content: str) -> GateResult:
     """AI 말투 금지."""
     banned = [
@@ -93,6 +115,38 @@ def gate_banned_phrases(content: str) -> GateResult:
     return GateResult("금지어", True, "위반 0건")
 
 
+def gate_profanity(content: str) -> GateResult:
+    """욕설·비속어 노출 금지."""
+    found = [t for t in PROFANITY_TERMS if t in content]
+    if found:
+        return GateResult("비속어", False, f"비속어 {len(found)}건: {', '.join(found[:5])}")
+    return GateResult("비속어", True, "위반 0건")
+
+
+def gate_raw_slang(content: str) -> GateResult:
+    """원문 댓글 은어·자음체 과다 노출 금지."""
+    count = sum(content.count(tok) for tok in RAW_SLANG_TOKENS)
+    if count >= 3:
+        return GateResult("댓글은어", False, f"은어 토큰 {count}건 (최대 2건)")
+    return GateResult("댓글은어", True, f"은어 토큰 {count}건")
+
+
+def gate_nickname_exposure(content: str) -> GateResult:
+    """커뮤니티 닉네임 직접 노출 금지."""
+    import re
+    patterns = [
+        r'닉네임.{0,10}["“][^"”]{2,}["”]',
+        r'["“][^"”]{2,}["”].{0,10}닉네임',
+        r'라는\s*닉네임',
+    ]
+    hits = []
+    for pat in patterns:
+        hits.extend(re.findall(pat, content))
+    if hits:
+        return GateResult("닉네임", False, f"닉네임 노출 {len(hits)}건")
+    return GateResult("닉네임", True, "위반 0건")
+
+
 def run_gates(content: str) -> list[GateResult]:
     """모든 게이트 실행."""
     return [
@@ -103,6 +157,10 @@ def run_gates(content: str) -> list[GateResult]:
         gate_comment_summary(content),
         gate_value_add(content),
         gate_seo_structure(content),
+        gate_artifacts(content),
+        gate_profanity(content),
+        gate_raw_slang(content),
+        gate_nickname_exposure(content),
     ]
 
 

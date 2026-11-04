@@ -5,7 +5,7 @@
 커뮤니티(오늘의 유머, 개 drip, FM코리아) 인기글을 큐레이션하여 블로그로 발행하는 완전 자동화 프로젝트.
 
 - 플랫폼: Blogger (무료 호스팅 + AdSense)
-- 주제: 연예/이슈
+- 주제: 디지털 생활, AI 활용, 지식 사전
 - 운영: 크롤링 → AI 큐레이션 → 품질 게이트 → 예약 발행 (완전 자동)
 - 수익: Google AdSense
 
@@ -48,7 +48,7 @@ playwright install chromium
 4. OAuth 클라이언트 ID 생성 (데스크톱 앱) → `client_secret_*.json` 다운로드 → 프로젝트 폴더에 복사
 5. `python automation/auth_setup.py` 실행 → 브라우저에서 인증 → `token.json` 생성
 6. `automation/publish.py`의 `DEFAULT_BLOG_URL`을 새 블로그 주소로 수정
-7. Blogger 관리 → 테마 → 백업/다운로드 (원본 백업) → 복원/업로드 → `templates/blog-layout.xml` 선택
+7. Blogger 관리 → 테마 → 기본 테마 사용 (커스텀 레이아웃 파일은 저장소에 없음)
 8. 소개·개인정보처리방침 페이지 생성, 라벨(카테고리) 구성
 
 ### 환경변수

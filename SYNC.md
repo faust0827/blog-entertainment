@@ -60,3 +60,34 @@
 git pull origin main
 # SETUP.md 참고하여 환경 설정
 ```
+
+---
+
+## 머신 태그 & 세션 프로토콜 (2026-11-04 추가)
+
+### 머신 태그
+- 커밋 메시지 접두어: `[X230]`, `[y40]` 등 (각 머신 고유 태그).
+- `PROGRESS.md` 기록도 동일 태그 사용.
+
+### 세션 시작 체크리스트
+1. `git pull origin main`
+2. `python automation/sync_status.py` (머신 id, 미push 커밋, 미추적 파일, ledger 건수 확인)
+3. `tail -n 15 WORK_LOG.md` + `git log --oneline -10` 으로 다른 머신 작업 파악
+4. 미push/미커밋 잔여물이 있으면 먼저 정리(커밋 또는 `wip/<머신>` 브랜치 push) 후 진행
+
+### 세션 종료 체크리스트
+1. 품질 게이트·테스트 실행
+2. 의도한 파일만 `git add`
+3. 커밋: `git commit -m "[태그] scope: 설명"`
+4. `WORK_LOG.md`에 항목 append (커밋 해시 포함)
+5. `git add WORK_LOG.md && git commit --amend --no-edit` 또는 별도 커밋
+6. `git push origin main` (실패 시 `git pull --rebase` 후 재push)
+
+### 미완성 작업 공유
+- 중단 시 `wip/<머신>` 브랜치에 커밋+push하여 다른 머신이 fetch로 확인 가능.
+- main에는 완료된 작업만 병합.
+
+### 공유 자산 (git-tracked)
+- `automation/schedule_ledger.json` — 예약 발행 이력 (중복 방지)
+- `automation/url_map.json` — 내부 링크 매핑
+- `pages/`, `posts/`, `index_urls.txt`, `WORK_LOG.md`, `SYNC.md`
