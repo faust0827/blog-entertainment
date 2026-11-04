@@ -99,3 +99,10 @@
 - [X230] `posts/*.html` trailing `"""` 아티팩트 16개 일괄 제거
 - [X230] README의 존재하지 않는 `templates/blog-layout.xml` 참조 수정
 - 수동 필요: Blogger 메뉴에 페이지 링크 추가, robots.txt sitemap을 issuedayissue.blogspot.com으로 수정, Search Console 등록
+
+## 2026-11-04 [X230] 자동 remediation
+
+- [X230] posts/*.html 23개에 JSON-LD(Article) 주입 (SEO구조 게이트 통과)
+- [X230] 비속어·은어 토큰 22개 글에서 중립화 ([비속어] 치환·은어 제거)
+- [X230] 전체 63개 글 10/10 게이트 통과 확인
+- [X230] 머신 간 공유 체계 구축 (WORK_LOG, sync_status, SYNC 프로토콜)
