@@ -117,3 +117,7 @@
 - [X230] 가이드 5건 예약 발행 완료 (11/10~11/14)
 - [X230] url_map URL 보정 + publish.py 홈 URL 저장 방지
 - [X230] 검색 설명 목록 파일 생성 (automation/search_descriptions.txt)
+
+### 2026-11-04 [X230] AdSense 코드 삽입
+- [X230] pub-2870925450401317 AdSense 스크립트를 posts 63개 + pages 4개에 삽입
+- [X230] 게이트 11/11 유지 (72파일)
