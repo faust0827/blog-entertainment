@@ -7,3 +7,4 @@
 
 - 2026-11-04 15:30 [X230] 머신 간 공유 체계화: 미추적 자산 커밋(pages/8 posts/ledger/docs), WORK_LOG 신설, SYNC 프로토콜·태그 규약, sync_status.py | 범위: 42 files | 커밋: 9105aa0 | 다음: 다른 머신 pull 후 sync_status 확인
 - 2026-11-04 15:35 [X230] sync_status.py 정규식 수정(로그 항목 인식) | 커밋: 3b8a580 | 다음: 없음
+- 2026-11-04 16:00 [X230] 게이트 remediation: JSON-LD 23건 주입, 비속어/은어 22건 중립화, 전체 63개 10/10 통과 | 커밋: 599a03b | 다음: Blogger 수동 조치(메뉴/검색설명/라벨/robots/SC/ads.txt)
