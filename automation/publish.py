@@ -300,8 +300,8 @@ def publish_one(service, blog_id, path, html, *, draft, title=None, labels=None)
     if labels:
         body["labels"] = labels
     post = service.posts().insert(blogId=blog_id, body=body, isDraft=draft).execute()
-    # url_map 갱신
-    if post.get("url"):
+    # url_map 갱신 (임시/홈 URL은 저장하지 않음)
+    if post.get("url") and post["url"].rstrip("/") != f"https://{DEFAULT_BLOG_URL}".rstrip("/"):
         url_map[path.name] = post["url"]
         save_url_map(url_map)
     expected = "DRAFT" if draft else "LIVE"
@@ -325,7 +325,7 @@ def update_one(service, blog_id, path, html, post_id, *, title=None, labels=None
     if labels:
         body["labels"] = labels
     post = service.posts().update(blogId=blog_id, postId=post_id, body=body, publish=False).execute()
-    if post.get("url"):
+    if post.get("url") and post["url"].rstrip("/") != f"https://{DEFAULT_BLOG_URL}".rstrip("/"):
         url_map[path.name] = post["url"]
         save_url_map(url_map)
     if publish:
