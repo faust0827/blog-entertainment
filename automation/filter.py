@@ -23,7 +23,7 @@ PROFANITY_KEYWORDS = [
 
 RAW_SLANG_TOKENS = ["ㅋㅋ", "ㄷㄷ", "ㄹㅇ", "ㅇㅈ", "ㅇㅋ", "ㄹㅇㅋㅋ"]
 
-MAX_DAILY = 2
+MAX_DAILY = 1
 
 
 def is_sensitive(title: str, body: str) -> bool:
