@@ -2,6 +2,7 @@
 """머신 간 작업 공유 상태 점검."""
 import subprocess
 from pathlib import Path
+import re
 
 ROOT = Path(__file__).resolve().parent.parent
 MACHINE_ID = ROOT / ".machine_id"
@@ -35,7 +36,7 @@ def main():
         print(f"url_map 항목: {len(data)}건")
     log = ROOT / "WORK_LOG.md"
     if log.exists():
-        lines = [l for l in log.read_text(encoding="utf-8").splitlines() if l.strip().startswith("20")]
+        lines = [l for l in log.read_text(encoding="utf-8").splitlines() if re.search(r"\d{4}-\d{2}-\d{2}", l)]
         print("최근 작업 로그:")
         for l in lines[-5:]:
             print("  " + l)
