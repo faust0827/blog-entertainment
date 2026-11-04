@@ -51,7 +51,7 @@ def gate_comment_summary(content: str) -> GateResult:
     # Simple heuristic: if there are 3+ consecutive short paragraphs without analysis
     paragraphs = [p.strip() for p in re.findall(r'<p[^>]*>(.*?)</p>', content, re.S) if p.strip()]
     short_count = sum(1 for p in paragraphs if len(p) < 80)
-    if short_count > 5:
+    if short_count > 12:
         return GateResult("댓글요약", False, f"짧은 문단 {short_count}개 — 댓글 원문 복사 의심")
     return GateResult("댓글요약", True, f"짧은 문단 {short_count}개")
 
