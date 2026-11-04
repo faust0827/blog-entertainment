@@ -30,7 +30,14 @@
 ## 2. 각 글의 검색 설명(Search Description) 입력 (필수)
 
 Blogger는 HTML meta description을 무시하므로 글 설정에서 직접 입력해야 합니다.
+먼저 블로그 레벨에서 검색 설명 기능을 켜야 글 편집 화면에 "검색 설명" 항목이 나타납니다.
 
+### 2-0. 검색 설명 기능 활성화 (1회)
+1. Blogger 관리자 → "설정" → "검색 환경설정" (Search preferences)
+2. "메타 태그" (Meta tags) → "설명" (Description) → "사용" (Yes/Enabled)
+3. "저장" 클릭
+
+### 2-1. 글별 검색 설명 입력
 1. Blogger 관리자 → 좌측 "글" 클릭
 2. 글 목록에서 하나 선택 → "수정" 클릭
 3. 우측 설정 패널 "검색 설명" (Search Description) 항목 찾기
