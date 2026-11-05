@@ -118,15 +118,23 @@ Sitemap: https://issuedayissue.blogspot.com/sitemap.xml
 
 ---
 
+## 현재 자동화 상태 (2026-11-05)
+
+- posts: 82개, 가이드 글 24개
+- 품질 게이트: 82/82 통과 (11/11)
+- 예약 발행: 11/03~11/29 (하루 1건)
+- MAX_DAILY: 1 (automation/filter.py)
+- 미커밋 변경: 없음 (최신 커밋 d366e6c)
+
 ## 체크리스트 요약
 
 - [ ] 메뉴에 4개 페이지 링크
-- [ ] 검색 설명 53개+ 입력
+- [ ] 검색 설명 82개 입력
 - [ ] 라벨 3개로 정리
 - [ ] robots.txt sitemap 수정
 - [ ] Search Console 등록 + sitemap 제출
 - [ ] 색인 요청 (하루 10~20건)
-- [ ] AdSense 가입 (가이드 10~15개 후)
+- [ ] AdSense 가입 (가이드 15개+ 및 수동 조치 완료 후)
 - [ ] 발행 속도 하루 1건 유지
 EOF
 echo done
