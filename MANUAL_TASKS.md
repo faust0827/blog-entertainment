@@ -132,7 +132,7 @@ Sitemap: https://issuedayissue.blogspot.com/sitemap.xml
 - [x] 검색 설명 82개 입력 (search_descriptions.txt 보완)
 - [ ] 라벨 3개로 정리
 - [x] robots.txt sitemap 수정
-- [ ] Search Console 등록 + sitemap 제출
+- [x] Search Console 등록 + sitemap 제출
 - [ ] 색인 요청 (하루 10~20건)
 - [ ] AdSense 가입 (가이드 15개+ 및 수동 조치 완료 후)
 - [ ] 발행 속도 하루 1건 유지
