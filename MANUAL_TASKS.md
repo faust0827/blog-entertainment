@@ -120,7 +120,7 @@ Sitemap: https://issuedayissue.blogspot.com/sitemap.xml
 
 ## 현재 자동화 상태 (2026-11-05)
 
-- posts: 82개, 가이드 글 24개
+- posts: 88개, 가이드 글 29개
 - 품질 게이트: 82/82 통과 (11/11)
 - 예약 발행: 11/03~11/29 (하루 1건)
 - MAX_DAILY: 1 (automation/filter.py)
