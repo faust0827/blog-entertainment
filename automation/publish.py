@@ -168,6 +168,18 @@ def count_scheduled_on(ledger: list[dict], date_iso: str, *, exclude_post_id: st
     return count
 
 
+import random as _random
+
+def _random_publish_time(date_iso: str) -> str:
+    """예약 발행 시간을 랜덤으로 생성 (09:00~11:30, 00/30분 제외)."""
+    from datetime import datetime, timezone, timedelta
+    KST = timezone(timedelta(hours=9))
+    dt = datetime.fromisoformat(date_iso).astimezone(KST)
+    hour = _random.choice([9, 10, 11])
+    minute = _random.choice([m for m in range(0, 60) if m not in (0, 30)])
+    dt = dt.replace(hour=hour, minute=minute, second=0, microsecond=0)
+    return dt.isoformat()
+
 def schedule_post(service, blog_id: str, post_id: str, publish_date: str, ledger_path: Path | None = None):
     ledger_path = ledger_path or LEDGER
     post = service.posts().publish(blogId=blog_id, postId=post_id, publishDate=publish_date).execute()
@@ -398,7 +410,7 @@ def main() -> int:
     parser.add_argument("--update", metavar="POST_ID", help="기존 글 갱신")
     parser.add_argument("--gates", action="store_true", help="품질 게이트 실행")
     parser.add_argument("--check-only", action="store_true", help="게이트 점검만")
-    parser.add_argument("--schedule", metavar="RFC3339", help="예약 발행 (예: 2026-11-07T10:30:00+09:00)")
+    parser.add_argument("--schedule", metavar="RFC3339", help="예약 발행 (예: 2026-11-07T10:30:00+09:00). 00/30분은 랜덤 시간으로 자동 변경됩니다")
     args = parser.parse_args()
 
     if args.publish and args.draft:
@@ -416,6 +428,10 @@ def main() -> int:
             parser.error("--schedule은 RFC3339 형식이어야 합니다")
         if schedule_dt.tzinfo is None:
             parser.error("--schedule에는 시간대(+09:00 등)가 필요합니다")
+        # 00분 또는 30분이면 랜덤 시간으로 변경 (자연스러운 발행 패턴)
+        if schedule_dt.minute in (0, 30):
+            args.schedule = _random_publish_time(args.schedule)
+            schedule_dt = datetime.fromisoformat(args.schedule)
         schedule_date = schedule_dt.astimezone(KST).date().isoformat()
 
     needs_reviewed = (args.publish or args.page or (args.update and not args.schedule))
