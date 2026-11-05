@@ -2,53 +2,73 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<title>브라우저 확장 프로그램 보안 가이드 — 설치 전 점검 기준</title>
-<meta name="description" content="브라우저 확장 프로그램을 설치할 때 확인할 권한, 개발자 신뢰도, 업데이트, 데이터 수집, 제거 방법과 안전한 사용 기준을 정리했습니다.">
+<title>브라우저 확장 프로그램 보안 가이드 — 디지털 생활</title>
+<meta name="description" content="브라우저 확장 프로그램의 보안 위험과 안전한 사용법을 정리했습니다. 권한 관리, 신뢰할 수 있는 확장 선택, 개인정보 보호 기준을 다룹니다.">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2870925450401317" crossorigin="anonymous"></script>
 </head>
 <body>
-<h2>브라우저 확장 프로그램 보안 가이드 — 설치 전 점검 기준</h2>
+<h2>브라우저 확장 프로그램 보안 가이드 — 디지털 생활</h2>
 
-<p><strong>핵심 요약:</strong> 브라우저 확장 프로그램은 편리하지만 웹 페이지 내용을 읽거나 데이터를 수집할 수 있습니다. 설치 전 권한과 개발자 정보, 업데이트 이력을 확인하는 것이 안전합니다.</p>
+<p><strong>핵심 요약:</strong> 브라우저 확장 프로그램은 편리하지만, 과도한 권한을 가진 확장은 개인정보 유출, 광고 삽입, 계정 탈취의 경로가 될 수 있습니다. 확장 설치 전 권한 확인, 출처 검증, 정기적인 정리가 필수입니다.</p>
 
-<h2>점검 기준</h2>
+<h2>확장 프로그램의 위험성</h2>
+<p>브라우저 확장은 웹 페이지의 내용을 읽고, 수정하고, 네트워크 요청을 가로챌 수 있는 강력한 권한을 가집니다. 악성 확장은 검색 결과를 조작하거나, 로그인 정보를 탈취하거나, 사용자 모르게 광고를 삽입할 수 있습니다.</p>
+<p>문제는 확장이 "무료"로 제공되면서 사용자 데이터를 수집하거나 광고 수익을 올리는 비즈니스 모델을 가진 경우가 많다는 점입니다. 겉으로는 유용해 보이지만, 내부적으로는 사용자 행동을 추적하고 판매할 수 있습니다.</p>
+<p>출처: <a target="_blank" href="https://developer.chrome.com/docs/extensions/mv3/security">Chrome 확장 보안 문서</a> · <a target="_blank" href="https://www.kisa.or.kr">KISA</a></p>
+
+<h2>권한 유형과 위험도</h2>
 <table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:12px 0;">
-  <tr><th>확인 항목</th><th>왜 중요한가</th><th>점검 방법</th></tr>
-  <tr><td>권한 범위</td><td>모든 사이트 읽기/수정 가능</td><td>설치 전 권한 목록 확인</td></tr>
-  <tr><td>개발자 정보</td><td>신뢰할 수 있는 출처</td><td>공식 사이트/연락처 확인</td></tr>
-  <tr><td>사용자 수/리뷰</td><td>커뮤니티 검증</td><td>스토어 리뷰 확인</td></tr>
-  <tr><td>업데이트 이력</td><td>유지보수 상태</td><td>최근 업데이트 날짜</td></tr>
-  <tr><td>데이터 수집</td><td>개인정보 유출 위험</td><td>개인정보 처리방침 확인</td></tr>
-  <tr><td>제거 방법</td><td>잔여 데이터 정리</td><td>설정에서 확장 제거</td></tr>
+  <tr><th>권한</th><th>위험도</th><th>설명</th></tr>
+  <tr><td>모든 사이트 읽기/쓰기</td><td>높음</td><td>방문하는 모든 페이지의 내용을 읽고 수정 가능</td></tr>
+  <tr><td>특정 사이트 읽기/쓰기</td><td>중간</td><td>지정된 사이트에서만 동작 (상대적으로 안전)</td></tr>
+  <tr><td>브라우징 데이터 읽기</td><td>높음</td><td>방문 기록, 쿠키, 북마크 접근 가능</td></tr>
+  <tr><td>네트워크 요청 가로채기</td><td>높음</td><td>모든 HTTP 요청을 모니터링/수정 가능</td></tr>
+  <tr><td>클립보드 접근</td><td>중간</td><td>복사한 내용(비밀번호 포함) 읽기 가능</td></tr>
+  <tr><td>알림 표시</td><td>낮음</td><td>브라우저 알림 발송</td></tr>
+  <tr><td>저장소 접근</td><td>낮음</td><td>확장 자체 데이터 저장</td></tr>
 </table>
 
-<h3>1. 권한 요청</h3>
-<p>확장 프로그램이 "모든 웹사이트의 데이터 읽기 및 변경" 권한을 요구하면 주의해야 합니다. 필요한 기능에 비해 권한이 과도한 경우 설치를 피하는 것이 안전합니다.</p>
-<h3>2. 개발자와 출처</h3>
-<p>공식 웹사이트와 연락처가 있는 개발자인지 확인해야 합니다. 이름만 있는 개발자나 익명 확장은 검증이 어렵습니다.</p>
-<h3>3. 업데이트와 유지보수</h3>
-<p>오랫동안 업데이트되지 않은 확장은 보안 취약점이 남아 있을 수 있습니다. 브라우저 버전 변경에 대응하지 못할 수도 있습니다.</p>
+<h2>안전한 확장 선택 기준</h2>
+<h3>1. 출처 확인</h3>
+<p>공식 웹 스토어(Chrome Web Store, Firefox Add-ons)에서 설치하되, 개발자 정보와 리뷰를 확인해야 합니다. "Featured" 또는 "Recommended" 배지가 있는 확장이 더 안전합니다. 외부 사이트에서 .crx 파일을 직접 다운로드하는 것은 피해야 합니다.</p>
 
-<h2>안전 사용 기준</h2>
-<p>확장 프로그램은 필요한 것만 설치하고, 사용하지 않는 것은 제거합니다. 비밀번호 관리자, 광고 차단기, 개발 도구처럼 신뢰할 수 있는 확장이라도 권한을 주기적으로 점검해야 합니다. 회사나 학교 계정에서는 관리자 정책을 확인해야 합니다.</p>
+<h3>2. 권한 최소화</h3>
+<p>확장 설치 시 요청하는 권한을 반드시 확인하세요. "모든 웹사이트의 데이터 읽기 및 변경" 권한이 필요한 확장은 그 이유가 명확해야 합니다. 광고 차단기는 모든 사이트 권한이 필요하지만, 메모 앱이 모든 사이트 권한을 요청한다면 의심해야 합니다.</p>
+
+<h3>3. 사용자 수와 리뷰</h3>
+<p>사용자 수가 많고 리뷰가 좋은 확장이 일반적으로 더 안전합니다. 다만 최근에 인기를 얻은 확장은 검증이 부족할 수 있으므로, 설치 후 권한 사용을 모니터링해야 합니다.</p>
+
+<h3>4. 업데이트 주기</h3>
+<p>정기적으로 업데이트되는 확장이 더 안전합니다. 오랫동안 업데이트되지 않은 확장은 보안 취약점이 방치될 수 있습니다. 또한 확장이 매각되거나 개발자가 변경되면 악성 코드가 삽입될 수 있으므로, 업데이트 후 권한 변경 여부를 확인해야 합니다.</p>
+
+<h2>설치 후 보안 관리</h2>
+<table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:12px 0;">
+  <tr><th>작업</th><th>주기</th><th>방법</th></tr>
+  <tr><td>확장 목록 점검</td><td>월 1회</td><td>사용하지 않는 확장 제거</td></tr>
+  <tr><td>권한 재확인</td><td>분기 1회</td><td>각 확장의 권한 설정 검토</td></tr>
+  <tr><td>업데이트 확인</td><td>자동</td><td>브라우저 자동 업데이트 활성화</td></tr>
+  <tr><td>의심 확장 조사</td><td>수시</td><td>이름/개발자 검색으로 평판 확인</td></tr>
+</table>
 
 <h2>해설·분석</h2>
-<p>브라우저 확장 보안에서 가장 중요한 것은 "권한 최소화"입니다. 확장이 많은 권한을 가질수록 사고 발생 시 피해 범위가 커집니다. 필요한 기능만 제공하는 확장을 선택하는 것이 안전합니다.</p>
-<p>또한 확장 프로그램은 브라우저 업데이트와 충돌할 수 있으므로, 문제 발생 시 확장을 하나씩 비활성화해 원인을 찾는 것이 효과적입니다.</p>
+<p>브라우저 확장 보안에서 가장 중요한 것은 **"필요한 것만 설치"** 원칙입니다. 확장이 많을수록 공격 표면이 넓어지고, 성능도 저하됩니다. "나중에 쓸 수도 있으니" 설치해 두는 습관은 보안 위험을 키웁니다.</p>
+<p>또한 확장의 권한은 설치 시점뿐 아니라 업데이트 시에도 변경될 수 있습니다. 확장 업데이트 후 새로운 권한을 요청하는 경우가 있으므로, 업데이트 알림을 무시하지 말고 확인해야 합니다.</p>
+<p>특히 금융, 이메일, 클라우드 계정을 사용하는 브라우저에는 최소한의 확장만 설치하는 것이 안전합니다. 광고 차단기와 비밀번호 관리자 정도로 제한하고, 나머지는 별도 브라우저 프로필에서 사용하는 것이 좋습니다.</p>
 
 <h2>자주 묻는 질문</h2>
-<p><strong>Q. 확장 프로그램이 안전한지 어떻게 알 수 있나요?</strong><br>권한, 개발자, 리뷰, 업데이트 이력을 함께 확인해야 합니다.</p>
-<p><strong>Q. 광고 차단기는 안전한가요?</strong><br>신뢰할 수 있는 확장이라도 권한과 데이터 수집 정책을 확인해야 합니다.<br><strong>Q. 확장을 제거하면 데이터도 삭제되나요?</strong><br>브라우저 데이터는 남을 수 있으므로 설정에서 정리해야 합니다.</p>
-<p><strong>Q. 출처는 어디서 확인하나요?</strong><br>Chrome Web Store와 Mozilla Add-ons 공식 페이지에서 확인할 수 있습니다.</p>
+<p><strong>Q. 광고 차단기는 안전한가요?</strong><br>uBlock Origin, AdGuard 등 오픈소스 광고 차단기는 상대적으로 안전합니다. 다만 일부 광고 차단기는 "허용 가능한 광고" 프로그램에 참여하여 특정 광고를 허용할 수 있으므로, 설정을 확인해야 합니다.</p>
+<p><strong>Q. 확장이 내 비밀번호를 읽을 수 있나요?</strong><br>권한에 따라 가능합니다. "모든 웹사이트의 데이터 읽기" 권한이 있는 확장은 입력 필드의 값을 읽을 수 있습니다. 비밀번호 입력 시 확장이 활성화되어 있으면 주의가 필요합니다.</p>
+<p><strong>Q. 시크릿 모드에서 확장이 동작하나요?</strong><br>기본적으로 시크릿 모드에서는 확장이 비활성화됩니다. 설정에서 "시크릿 모드에서 허용"을 켜지 않는 한 안전합니다.</p>
+<p><strong>Q. 출처는 어디서 확인하나요?</strong><br>Chrome Web Store와 Firefox Add-ons의 공식 페이지, 그리고 KISA의 보안 안내에서 확인할 수 있습니다.</p>
 
 <hr>
-<p><strong>확인일: 2026-11-04</strong> · 출처: <a target="_blank" href="https://chrome.google.com/webstore">Chrome Web Store</a> · <a target="_blank" href="https://addons.mozilla.org">Mozilla Add-ons</a></p>
-<p>본 글은 공개된 보안 안내를 바탕으로 정리한 것이며, 특정 확장의 안전성을 보장하지 않습니다. 원문은 위 링크에서 확인하세요.</p>
+<p><strong>확인일: 2026-11-05</strong> · 출처: <a target="_blank" href="https://developer.chrome.com/docs/extensions/mv3/security">Chrome 개발자 문서</a> · <a target="_blank" href="https://www.kisa.or.kr">KISA</a></p>
+<p>※ 이 글은 공개된 보안 정보를 바탕으로 정리한 것입니다. 최신 위협 정보는 공식 보안 채널에서 확인하세요.</p>
 <script async="async" data-cfasync="false" src="https://bicea.org/21/217bd7d77616da099f246bc0ad772e30"></script>
 <div id="container-217bd7d77616da099f246bc0ad772e30"></div>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "브라우저 확장 프로그램 보안 가이드 — 설치 전 점검 기준", "author": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"}, "publisher": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"}, "description": "브라우저 확장 프로그램을 설치할 때 확인할 권한, 개발자 신뢰도, 업데이트, 데이터 수집, 제거 방법과 안전한 사용 기준을 정리했습니다."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "브라우저 확장 프로그램 보안 가이드 — 디지털 생활", "author": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"}, "publisher": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"}, "description": "브라우저 확장 프로그램의 보안 위험과 안전한 사용법을 정리했습니다."}</script>
 <script data-cfasyc="false" src="https://bicea.org/14/422a75f2e2163a1cbe56d8aa4c1df2f8"></script>
 </body>
 </html>
 EOF
-echo done
+echo "done"
