@@ -289,10 +289,32 @@ def _inject_seo(content: str, title: str, description: str | None) -> str:
     return content.rstrip() + "\n" + script
 
 
+ADSTERRA_SOCIAL_BAR = '<script data-cfasyc="false" src="https://bicea.org/14/422a75f2e2163a1cbe56d8aa4c1df2f8"></script>'
+ADSTERRA_NATIVE_BANNER = '<script async="async" data-cfasync="false" src="https://bicea.org/21/217bd7d77616da099f246bc0ad772e30"></script>\n<div id="container-217bd7d77616da099f246bc0ad772e30"></div>'
+
+def _inject_ads(content: str) -> str:
+    """Adsterra 광고 코드 삽입. 이미 있으면 건너뜀."""
+    if "bicea.org/14/422a75f2e2163a1cbe56d8aa4c1df2f8" in content:
+        return content
+    # Native Banner: JSON-LD 앞에 삽입 (본문 내)
+    if "application/ld+json" in content:
+        content = content.replace(
+            '<script type="application/ld+json">',
+            ADSTERRA_NATIVE_BANNER + "\n" + '<script type="application/ld+json">',
+            1,
+        )
+    else:
+        content = content.replace("</body>", ADSTERRA_NATIVE_BANNER + "\n</body>", 1)
+    # Social Bar: </body> 바로 위
+    content = content.replace("</body>", ADSTERRA_SOCIAL_BAR + "\n</body>", 1)
+    return content
+
+
 def publish_one(service, blog_id, path, html, *, draft, title=None, labels=None):
     content, extracted_title, description = parse_html(html, path.stem)
     final_title = title or extracted_title
     content = _inject_seo(content, final_title, description)
+    content = _inject_ads(content)
     # 내부 링크 자동 삽입 (기존 관련 글 섹션 제거 후 재삽입)
     url_map = load_url_map()
     content = _inject_related(content, path.name, url_map)
@@ -319,6 +341,7 @@ def update_one(service, blog_id, path, html, post_id, *, title=None, labels=None
     content, extracted_title, description = parse_html(html, path.stem)
     final_title = title or extracted_title
     content = _inject_seo(content, final_title, description)
+    content = _inject_ads(content)
     url_map = load_url_map()
     content = _inject_related(content, path.name, url_map)
     body = {"kind": "blogger#post", "title": final_title, "content": content}
@@ -346,6 +369,7 @@ def publish_page(service, blog_id, path, html, *, title=None):
     content, extracted_title, description = parse_html(html, path.stem)
     final_title = title or extracted_title
     content = _inject_seo(content, final_title, description)
+    content = _inject_ads(content)
     body = {"kind": "blogger#page", "title": final_title, "content": content}
     page = service.pages().insert(blogId=blog_id, body=body, isDraft=False).execute()
     print(f"[페이지] {page['title']}")
