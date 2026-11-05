@@ -133,8 +133,8 @@ Sitemap: https://issuedayissue.blogspot.com/sitemap.xml
 - [ ] 라벨 3개로 정리
 - [x] robots.txt sitemap 수정
 - [x] Search Console 등록 + sitemap 제출
-- [ ] 색인 요청 (하루 10~20건)
-- [ ] AdSense 가입 (가이드 15개+ 및 수동 조치 완료 후)
+- [x] 색인 요청 (하루 10~20건)
+- [x] AdSense 가입/연결 (publisher ID pub-2870925450401317)
 - [ ] 발행 속도 하루 1건 유지
 EOF
 echo done
