@@ -128,8 +128,8 @@ Sitemap: https://issuedayissue.blogspot.com/sitemap.xml
 
 ## 체크리스트 요약
 
-- [ ] 메뉴에 4개 페이지 링크
-- [ ] 검색 설명 82개 입력
+- [x] 메뉴에 4개 페이지 링크
+- [x] 검색 설명 82개 입력 (search_descriptions.txt 보완)
 - [ ] 라벨 3개로 정리
 - [ ] robots.txt sitemap 수정
 - [ ] Search Console 등록 + sitemap 제출
