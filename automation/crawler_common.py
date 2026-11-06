@@ -201,7 +201,7 @@ def generic_collect_playwright(community: str, start_url: str, max_posts: int = 
         page.set_extra_http_headers({"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"})
         try:
             page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-            page.goto(start_url, wait_until="domcontentloaded", timeout=30000)
+            page.goto(start_url, wait_until="domcontentloaded", timeout=15000)
             page.wait_for_timeout(4000)
         except Exception as e:
             print(f"[{community}] list load error: {e}")
@@ -232,7 +232,7 @@ def generic_collect_playwright(community: str, start_url: str, max_posts: int = 
         for item in links[:max_posts]:
             try:
                 print(f"  Fetching: {item['title'][:50]}...")
-                page.goto(item["url"], wait_until="domcontentloaded", timeout=30000)
+                page.goto(item["url"], wait_until="domcontentloaded", timeout=15000)
                 page.wait_for_timeout(2000)
 
                 post = Post(url=item["url"], community=community, collected_at=datetime.now().isoformat())

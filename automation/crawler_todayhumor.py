@@ -44,7 +44,7 @@ def collect() -> list[Post]:
         page.set_extra_http_headers({"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"})
 
         # Best list
-        page.goto(BEST_URL, wait_until="domcontentloaded", timeout=30000)
+        page.goto(BEST_URL, wait_until="domcontentloaded", timeout=15000)
         page.wait_for_timeout(2000)
 
         # Extract post links
@@ -69,7 +69,7 @@ def collect() -> list[Post]:
         for item in links[:8]:
             try:
                 print(f"  Fetching: {item['title'][:50]}...")
-                page.goto(item["url"], wait_until="networkidle", timeout=30000)
+                page.goto(item["url"], wait_until="networkidle", timeout=15000)
                 page.wait_for_timeout(5000)  # Wait for comments to load via AJAX
 
                 post = Post(url=item["url"], collected_at=datetime.now().isoformat())

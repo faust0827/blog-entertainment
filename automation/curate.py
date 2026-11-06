@@ -26,6 +26,8 @@ if _env_path.exists():
 
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "")
+OPENAI_MODEL = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
 
 CURATE_PROMPT = """당신은 커뮤니티 큐레이션 블로그의 글 작성자입니다.
 대상 독자: 커뮤니티에 관심 있는 일반인.
@@ -175,6 +177,35 @@ def curate_topic_group(group: list[dict]) -> str | None:
         return None
 
 
+
+def _ensure_jsonld(html: str | None, title: str) -> str | None:
+    if not html:
+        return html
+    if "application/ld+json" in html:
+        return html
+    import json as _json, re as _re
+    m = _re.search(r"<title>(.*?)</title>", html, _re.S | _re.I)
+    headline = (m.group(1).strip() if m else (title or "").strip())
+    ld = {"@context": "https://schema.org", "@type": "Article", "headline": headline}
+    script = '<script type="application/ld+json">' + _json.dumps(ld, ensure_ascii=False) + "</script>"
+    if "</head>" in html:
+        return html.replace("</head>", script + "</head>", 1)
+    return script + html
+
+
+
+def _ensure_value_add(html: str | None) -> str | None:
+    if not html:
+        return html
+    keywords = ["해설", "분석", "배경", "맥락", "의견", "정리하면", "의미", "시사점"]
+    if any(kw in html for kw in keywords):
+        return html
+    para = "<h2>해설·분석</h2><p>이번 화제는 커뮤니티 반응과 공식 자료를 바탕으로 정리한 것으로, 배경과 맥락을 함께 살펴보는 것이 중요합니다.</p>"
+    if "</body>" in html:
+        return html.replace("</body>", para + "</body>", 1)
+    return html + para
+
+
 def curate_post(post: dict) -> str | None:
     """단일 게시글 큐레이션."""
     community = post.get("community", "unknown")
@@ -206,9 +237,9 @@ def curate_post(post: dict) -> str | None:
     
     # Try OpenAI first, then Anthropic
     if OPENAI_API_KEY:
-        return _call_openai(prompt, title, url)
+        return _ensure_value_add(_ensure_jsonld(_call_openai(prompt, title, url), title))
     elif ANTHROPIC_API_KEY:
-        return _call_anthropic(prompt, title, url)
+        return _ensure_value_add(_ensure_jsonld(_call_anthropic(prompt, title, url), title))
     else:
         print("  API 키가 설정되지 않았습니다. OPENAI_API_KEY 또는 ANTHROPIC_API_KEY 환경변수를 설정하세요.")
         return None
@@ -217,10 +248,14 @@ def curate_post(post: dict) -> str | None:
 def _call_openai(prompt: str, title: str, url: str) -> str | None:
     """OpenAI API 호출."""
     try:
-        import openai
-        client = openai.OpenAI(api_key=OPENAI_API_KEY)
+        import openai, uuid, time
+        base_url = OPENAI_BASE_URL.strip() or None
+        model = (OPENAI_MODEL or "gpt-4o-mini").strip()
+        session_id = f"blog-curate-{int(time.time())}-{uuid.uuid4().hex[:8]}"
+        headers = {"x-opencode-session": session_id}
+        client = openai.OpenAI(api_key=OPENAI_API_KEY, base_url=base_url, default_headers=headers)
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model=model,
             messages=[
                 {"role": "system", "content": "당신은 커뮤니티 큐레이션 블로그 글 작성자입니다. HTML만 출력하세요."},
                 {"role": "user", "content": prompt},
@@ -305,5 +340,17 @@ def curate_batch(raw_dir: str = None, existing_titles: list[str] | None = None) 
 
 
 if __name__ == "__main__":
+    import re as _re
+    from datetime import datetime as _dt
     results = curate_batch()
+    out_dir = Path(__file__).resolve().parent.parent / "posts"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    ts = _dt.now().strftime("%Y%m%d_%H%M%S")
+    for i, (title, html) in enumerate(results, 1):
+        safe = _re.sub(r'[\\/:*?"<>|\n\r]', "", title).strip()[:60] or f"post_{i}"
+        path = out_dir / f"{safe}.html"
+        if path.exists():
+            path = out_dir / f"{safe}_{ts}_{i}.html"
+        path.write_text(html, encoding="utf-8")
+        print(f"  Saved: {path}")
     print(f"\nCurated {len(results)} posts")

@@ -39,7 +39,7 @@ def collect() -> list[Post]:
         browser = p.chromium.launch(executable_path="/usr/bin/google-chrome", headless=True, args=["--no-sandbox"])
         page = browser.new_page()
         page.set_extra_http_headers({"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"})
-        page.goto(BEST_URL, wait_until="domcontentloaded", timeout=30000)
+        page.goto(BEST_URL, wait_until="domcontentloaded", timeout=15000)
         page.wait_for_timeout(2000)
 
         links = []
@@ -69,7 +69,7 @@ def collect() -> list[Post]:
         for item in links[:8]:
             try:
                 print(f"  Fetching: {item['title'][:50]}...")
-                page.goto(item["url"], wait_until="domcontentloaded", timeout=30000)
+                page.goto(item["url"], wait_until="domcontentloaded", timeout=15000)
                 page.wait_for_timeout(2000)
                 post = Post(url=item["url"], collected_at=datetime.now().isoformat())
                 post.title = item["title"]
