@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>무료 DNS 서비스 비교 — Cloudflare, Google, Quad9, OpenDNS</title>
+<meta name="description" content="무료 DNS 서비스 4종을 속도, 보안, 개인정보 보호, 필터링 기준으로 비교했습니다.">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2870925450401317" crossorigin="anonymous"></script>
+</head>
+<body>
+<h2>무료 DNS 서비스 4종 비교 — Cloudflare, Google, Quad9, OpenDNS</h2>
+
+<p><strong>핵심 요약:</strong> DNS는 인터넷 접속의 첫 단계입니다. 기본 DNS 대신 빠르고 안전한 무료 DNS 서비스를 사용하면 인터넷 속도와 보안을 개선할 수 있습니다. Cloudflare, Google, Quad9, OpenDNS 4종을 비교합니다.</p>
+
+<h2>비교 대상 서비스</h2>
+<table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:12px 0;">
+  <tr><th>서비스</th><th>기본 DNS</th><th>보안 DNS</th><th>로그 정책</th><th>필터링</th></tr>
+  <tr><td>Cloudflare (1.1.1.1)</td><td>1.1.1.1 / 1.0.0.1</td><td>1.1.1.2 / 1.0.0.2</td><td>24시간 후 삭제</td><td>악성코드/성인 (선택)</td></tr>
+  <tr><td>Google (8.8.8.8)</td><td>8.8.8.8 / 8.8.4.4</td><td>❌</td><td>영구 보관</td><td>없음</td></tr>
+  <tr><td>Quad9 (9.9.9.9)</td><td>9.9.9.9 / 149.112.112.112</td><td>9.9.9.9</td><td>무로그</td><td>악성코드 자동 차단</td></tr>
+  <tr><td>OpenDNS</td><td>208.67.222.222 / 208.67.220.220</td><td>208.67.222.123</td><td>영구 보관</td><td>카테고리별 (계정 필요)</td></tr>
+</table>
+
+<p>출처: <a target="_blank" href="https://1.1.1.1">Cloudflare</a> · <a target="_blank" href="https://developers.google.com/speed/public-dns">Google Public DNS</a> · <a target="_blank" href="https://www.quad9.net">Quad9</a> · <a target="_blank" href="https://www.opendns.com">OpenDNS</a></p>
+
+<h2>서비스별 상세 분석</h2>
+
+<h3>1. Cloudflare (1.1.1.1)</h3>
+<p>가장 빠른 DNS 서비스 중 하나입니다. 24시간 후 로그를 삭제하는 개인정보 보호 정책을 가지고 있습니다. DoH(DNS over HTTPS)와 DoT(DNS over TLS)를 지원하여 DNS 쿼리를 암호화합니다. 1.1.1.2는 악성코드 사이트를 자동 차단하고, 1.1.1.3은 성인 콘텐츠도 차단합니다.</p>
+
+<h3>2. Google Public DNS (8.8.8.8)</h3>
+<p>가장 널리 사용되는 무료 DNS입니다. 속도가 빠르고 안정적이지만, 로그를 영구 보관합니다. DNSSEC 검증을 지원합니다. 필터링 기능은 없어 악성 사이트 차단이 필요하면 별도 도구가 필요합니다.</p>
+
+<h3>3. Quad9 (9.9.9.9)</h3>
+<p>보안에 중점을 둔 DNS 서비스입니다. 악성코드, 피싱, 봇넷 C&C 서버를 자동으로 차단합니다. 무로그 정책을 준수하며, 스위스 기반으로 개인정보 보호법이 강력합니다. 속도는 Cloudflare보다 약간 느리지만 보안이 더 강합니다.</p>
+
+<h3>4. OpenDNS</h3>
+<p>Cisco가 운영하는 DNS 서비스입니다. 계정을 생성하면 카테고리별 필터링(성인, 도박, SNS 등)을 설정할 수 있습니다. 가정용/기업용 필터링에 적합합니다. 무료 버전은 기본 필터링을 제공하며, 유료 버전에서 고급 기능을 사용할 수 있습니다.</p>
+
+<h2>선택 기준</h2>
+<table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:12px 0;">
+  <tr><th>사용 목적</th><th>추천</th><th>이유</th></tr>
+  <tr><td>속도 최우선</td><td>Cloudflare</td><td>가장 빠른 응답 시간</td></tr>
+  <tr><td>보안 최우선</td><td>Quad9</td><td>악성코드 자동 차단 + 무로그</td></tr>
+  <tr><td>개인정보 보호</td><td>Cloudflare / Quad9</td><td>로그 최소 보관</td></tr>
+  <tr><td>가정용 필터링</td><td>OpenDNS</td><td>카테고리별 필터링</td></tr>
+  <tr><td>안정성</td><td>Google</td><td>글로벌 인프라</td></tr>
+  <tr><td>DNS 암호화</td><td>Cloudflare</td><td>DoH/DoT 지원</td></tr>
+</table>
+
+<h2>DNS 변경 방법</h2>
+<ul>
+  <li><strong>Windows</strong>: 설정 → 네트워크 → 어댑터 옵션 → IPv4 속성 → DNS 서버 주소 변경</li>
+  <li><strong>Mac</strong>: 시스템 설정 → 네트워크 → DNS → "+" 버튼으로 추가</li>
+  <li><strong>라우터</strong>: 라우터 관리 페이지 → DNS 설정 → DNS 서버 주소 변경 (모든 기기에 적용)</li>
+  <li><strong>스마트폰</strong>: Wi-Fi 설정 → DNS → 수동 설정</li>
+</ul>
+
+<h2>해설·분석</h2>
+<p>DNS 서비스 선택에서 가장 중요한 것은 **"속도"와 "보안"**입니다. Cloudflare는 속도가 가장 빠르고, Quad9는 보안이 가장 강합니다. Google은 안정적이지만 로그를 영구 보관합니다.</p>
+<p>대부분의 사용자에게는 Cloudflare (1.1.1.1)가 가장 좋은 선택입니다. 속도가 빠르고, 개인정보 보호 정책이 명확하며, DoH/DoT로 암호화도 지원합니다.</p>
+<p>가정용 필터링이 필요하다면 OpenDNS, 보안이 최우선이라면 Quad9를 선택하세요. Google DNS는 안정성은 좋지만 개인정보 보호 측면에서 약점이 있습니다.</p>
+
+<h2>자주 묻는 질문</h2>
+<p><strong>Q. DNS를 변경하면 인터넷이 빨라지나요?</strong><br>DNS 응답 시간이 빨라지면 웹사이트 접속이 약간 빨라질 수 있습니다. 하지만 인터넷 속도 자체가 빨라지는 것은 아닙니다.</p>
+<p><strong>Q. DNS 변경이 위험한가요?</strong><br>신뢰할 수 있는 DNS 서비스를 사용하면 안전합니다. 악성 DNS 서비스는 피싱 사이트로 리디렉션할 수 있으므로 주의가 필요합니다.</p>
+<p><strong>Q. 모든 기기에 적용하려면?</strong><br>라우터에서 DNS를 변경하면 모든 기기에 적용됩니다. 개별 기기에서 변경하면 해당 기기에만 적용됩니다.</p>
+<p><strong>Q. 출처는 어디서 확인하나요?</strong><br>각 서비스의 공식 사이트에서 최신 정보를 확인할 수 있습니다.</p>
+
+<hr>
+<p><strong>확인일: 2026-11-06</strong> · 출처: <a target="_blank" href="https://1.1.1.1">Cloudflare</a> · <a target="_blank" href="https://developers.google.com/speed/public-dns">Google</a> · <a target="_blank" href="https://www.quad9.net">Quad9</a> · <a target="_blank" href="https://www.opendns.com">OpenDNS</a></p>
+<p>※ 이 글은 공개된 서비스 정보를 바탕으로 정리한 것입니다. 최신 기능과 정책은 각 서비스 공식 사이트에서 확인하세요.</p>
+<script async="async" data-cfasync="false" src="https://bicea.org/21/217bd7d77616da099f246bc0ad772e30"></script>
+<div id="container-217bd7d77616da099f246bc0ad772e30"></div>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "무료 DNS 서비스 비교 — Cloudflare, Google, Quad9, OpenDNS", "author": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"}, "publisher": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"}, "description": "무료 DNS 서비스 4종을 속도, 보안, 개인정보 보호, 필터링 기준으로 비교했습니다."}</script>
+<script data-cfasyc="false" src="https://bicea.org/14/422a75f2e2163a1cbe56d8aa4c1df2f8"></script>
+</body>
+</html>
+EOF
+echo "done"
