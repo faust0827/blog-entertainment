@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>무료 모니터링/알림 도구 비교 — Uptime Kuma, Gatus, Statping, Healthchecks.io</title>
+<meta name="description" content="무료 셀프 호스팅 모니터링 도구 4종을 기능, 설정, 알림, 플랫폼 기준으로 비교했습니다.">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2870925450401317" crossorigin="anonymous"></script>
+</head>
+<body>
+<h2>무료 모니터링/알림 도구 4종 비교 — Uptime Kuma, Gatus, Statping, Healthchecks.io</h2>
+
+<p><strong>핵심 요약:</strong> 셀프 호스팅 모니터링 도구는 서버와 서비스의 가용성을 직접 관리할 수 있습니다. Uptime Kuma, Gatus, Statping, Healthchecks.io 4종을 기능, 설정, 알림, 플랫폼 기준으로 비교합니다.</p>
+
+<h2>비교 대상 도구</h2>
+<table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:12px 0;">
+  <tr><th>도구</th><th>유형</th><th>라이선스</th><th>플랫폼</th><th>무료 여부</th></tr>
+  <tr><td>Uptime Kuma</td><td>모니터링</td><td>MIT (오픈소스)</td><td>Docker, Node.js</td><td>완전 무료</td></tr>
+  <tr><td>Gatus</td><td>모니터링</td><td>Apache 2.0 (오픈소스)</td><td>Docker, 바이너리</td><td>완전 무료</td></tr>
+  <tr><td>Statping</td><td>모니터링</td><td>GPL (오픈소스)</td><td>Docker, 바이너리</td><td>완전 무료</td></tr>
+  <tr><td>Healthchecks.io</td><td>크론 모니터링</td><td>BSD (오픈소스)</td><td>SaaS / 자체 호스팅</td><td>무료 (20개 체크)</td></tr>
+</table>
+
+<p>출처: <a target="_blank" href="https://github.com/louislam/uptime-kuma">Uptime Kuma</a> · <a target="_blank" href="https://github.com/TwiN/gatus">Gatus</a> · <a target="_blank" href="https://github.com/statping/statping">Statping</a> · <a target="_blank" href="https://healthchecks.io">Healthchecks.io</a></p>
+
+<h2>기능별 비교</h2>
+<table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:12px 0;">
+  <tr><th>기능</th><th>Uptime Kuma</th><th>Gatus</th><th>Statping</th><th>Healthchecks.io</th></tr>
+  <tr><td>HTTP 모니터링</td><td>✅</td><td>✅</td><td>✅</td><td>❌ (크론 전용)</td></tr>
+  <tr><td>TCP/Port 모니터링</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td></tr>
+  <tr><td>Ping 모니터링</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td></tr>
+  <tr><td>DNS 모니터링</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td></tr>
+  <tr><td>SSL 인증서 모니터링</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td></tr>
+  <tr><td>상태 페이지</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+  <tr><td>알림 (Slack/Telegram/Discord)</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+  <tr><td>Webhook 알림</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+  <tr><td>크론 잡 모니터링</td><td>✅</td><td>❌</td><td>❌</td><td>✅ (전문)</td></tr>
+  <tr><td>다중 사용자</td><td>❌</td><td>❌</td><td>✅</td><td>✅ (유료)</td></tr>
+  <tr><td>모바일 앱</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td></tr>
+</table>
+
+<h2>도구별 상세 분석</h2>
+
+<h3>1. Uptime Kuma</h3>
+<p>UptimeRobot의 오픈소스 대안으로, 가장 인기 있는 셀프 호스팅 모니터링 도구입니다. Docker로 쉽게 설치할 수 있으며, 깔끔한 UI를 제공합니다. HTTP, TCP, Ping, DNS, SSL 모니터링을 지원합니다. 90개 이상의 알림 채널을 지원합니다. 크론 잡 모니터링도 가능합니다. 완전 무료이며, 유지보수가 활발합니다.</p>
+
+<h3>2. Gatus</h3>
+<p>Go로 작성된 경량 모니터링 도구입니다. YAML 설정 파일로 모니터를 구성하며, Docker나 바이너리로 실행할 수 있습니다. HTTP, TCP, ICMP, DNS 모니터링을 지원합니다. 응답 시간, 상태 코드, 조건부 평가 등 고급 모니터링이 가능합니다. 리소스 사용량이 매우 낮습니다.</p>
+
+<h3>3. Statping</h3>
+<p>Go로 작성된 모니터링 도구로, 상태 페이지와 알림을 제공합니다. HTTP, TCP, UDP, ICMP 모니터링을 지원합니다. 다중 사용자와 그룹 관리를 지원합니다. 하지만 개발이 중단되었으며, 보안 업데이트가 제공되지 않을 수 있습니다.</p>
+
+<h3>4. Healthchecks.io</h3>
+<p>크론 잡 모니터링에 특화된 서비스입니다. 서버에서 주기적으로 실행되는 작업(cron job)의 실행 여부를 모니터링합니다. 무료로 20개의 체크를 제공하며, 자체 호스팅도 가능합니다. 이메일, Slack, Telegram, SMS 등 다양한 알림 채널을 지원합니다.</p>
+
+<h2>선택 기준</h2>
+<table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:12px 0;">
+  <tr><th>사용 목적</th><th>추천</th><th>이유</th></tr>
+  <tr><td>종합 모니터링</td><td>Uptime Kuma</td><td>기능 풍부 + 쉬운 설치 + 활발한 개발</td></tr>
+  <tr><td>경량 모니터링</td><td>Gatus</td><td>낮은 리소스 + YAML 설정</td></tr>
+  <tr><td>크론 잡 모니터링</td><td>Healthchecks.io</td><td>크론 전문 + 무료 20개</td></tr>
+  <tr><td>다중 사용자</td><td>Statping</td><td>그룹/사용자 관리 (단, 개발 중단)</td></tr>
+  <tr><td>상태 페이지</td><td>Uptime Kuma / Gatus</td><td>내장 상태 페이지</td></tr>
+</table>
+
+<h2>해설·분석</h2>
+<p>셀프 호스팅 모니터링 도구 선택에서 가장 중요한 것은 **"기능"과 "유지보수"**입니다. Uptime Kuma가 현재 가장 활발하게 개발되고 있으며, 기능도 가장 풍부합니다. Gatus는 경량이고 빠르지만 기능이 제한적입니다.</p>
+<p>Statping은 개발이 중단되었으므로 새로운 프로젝트에는 권장하지 않습니다. Healthchecks.io는 크론 잡 모니터링에 특화되어 있으며, 웹 서비스 모니터링에는 적합하지 않습니다.</p>
+<p>결국 "종합 모니터링" Uptime Kuma, "경량" Gatus, "크론" Healthchecks.io 중에서 선택하면 됩니다.</p>
+
+<h2>자주 묻는 질문</h2>
+<p><strong>Q. 셀프 호스팅 vs SaaS 모니터링?</strong><br>셀프 호스팅은 비용이 없고 데이터를 직접 관리할 수 있지만, 서버 유지보수가 필요합니다. SaaS는 편리하지만 비용이 발생합니다.</p>
+<p><strong>Q. Uptime Kuma는 얼마나 자주 모니터링하나요?</strong><br>최소 20초 간격으로 모니터링할 수 있습니다. 기본값은 60초입니다.</p>
+<p><strong>Q. 모니터링 도구가 서버 리소스를 많이 사용하나요?</strong><br>Uptime Kuma와 Gatus는 매우 가볍습니다. Raspberry Pi에서도 실행할 수 있습니다.</p>
+<p><strong>Q. 출처는 어디서 확인하나요?</strong><br>각 도구의 GitHub 저장소와 공식 사이트에서 확인할 수 있습니다.</p>
+
+<hr>
+<p><strong>확인일: 2026-11-06</strong> · 출처: <a target="_blank" href="https://github.com/louislam/uptime-kuma">Uptime Kuma</a> · <a target="_blank" href="https://github.com/TwiN/gatus">Gatus</a> · <a target="_blank" href="https://github.com/statping/statping">Statping</a> · <a target="_blank" href="https://healthchecks.io">Healthchecks.io</a></p>
+<p>※ 이 글은 공개된 서비스 정보를 바탕으로 정리한 것입니다. 최신 기능과 가격은 각 서비스 공식 사이트에서 확인하세요.</p>
+<script async="async" data-cfasync="false" src="https://bicea.org/21/217bd7d77616da099f246bc0ad772e30"></script>
+<div id="container-217bd7d77616da099f246bc0ad772e30"></div>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "무료 모니터링/알림 도구 4종 비교 — Uptime Kuma, Gatus, Statping, Healthchecks.io", "author": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"}, "publisher": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"}, "description": "무료 셀프 호스팅 모니터링 도구 4종을 기능, 설정, 알림, 플랫폼 기준으로 비교했습니다."}</script>
+<script data-cfasyc="false" src="https://bicea.org/14/422a75f2e2163a1cbe56d8aa4c1df2f8"></script>
+</body>
+</html>
+EOF
+echo "done"
