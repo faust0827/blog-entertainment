@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>무료 로그 관리 도구 비교 — ELK Stack, Loki, Splunk, Papertrail</title>
+<meta name="description" content="무료 로그 관리 도구 4종을 기능, 가격, 플랫폼, 검색 기능 기준으로 비교했습니다.">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2870925450401317" crossorigin="anonymous"></script>
+</head>
+<body>
+<h2>무료 로그 관리 도구 4종 비교 — ELK Stack, Loki, Splunk, Papertrail</h2>
+
+<p><strong>핵심 요약:</strong> 로그 관리는 서비스 운영과 디버깅의 핵심입니다. ELK Stack, Loki, Splunk, Papertrail 4종을 기능, 가격, 플랫폼, 검색 기능 기준으로 비교합니다.</p>
+
+<h2>비교 대상 도구</h2>
+<table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:12px 0;">
+  <tr><th>도구</th><th>유형</th><th>라이선스</th><th>무료 제한</th></tr>
+  <tr><td>ELK Stack</td><td>자체 호스팅</td><td>오픈소스 (Apache 2.0)</td><td>무제한 (자체 호스팅)</td></tr>
+  <tr><td>Loki</td><td>자체 호스팅</td><td>AGPL (오픈소스)</td><td>무제한 (자체 호스팅)</td></tr>
+  <tr><td>Splunk</td><td>SaaS/자체 호스팅</td><td>상용 (무료 티어)</td><td>일 500MB</td></tr>
+  <tr><td>Papertrail</td><td>SaaS</td><td>상용 (무료 티어)</td><td>월 50MB</td></tr>
+</table>
+
+<p>출처: <a target="_blank" href="https://www.elastic.co">Elastic</a> · <a target="_blank" href="https://grafana.com/oss/loki">Grafana Loki</a> · <a target="_blank" href="https://www.splunk.com">Splunk</a> · <a target="_blank" href="https://www.papertrail.com">Papertrail</a></p>
+
+<h2>도구별 상세 분석</h2>
+
+<h3>1. ELK Stack (Elasticsearch, Logstash, Kibana)</h3>
+<p>가장 널리 사용되는 로그 관리 스택입니다. Elasticsearch(검색/저장), Logstash(수집/처리), Kibana(시각화)로 구성됩니다. 강력한 전문 검색과 대시보드를 제공합니다. 자체 호스팅이 필요하며, 리소스 사용량이 높습니다. 무료 오픈소스 버전과 유료 버전이 있습니다.</p>
+
+<h3>2. Grafana Loki</h3>
+<p>Prometheus에서 영감을 받은 로그 집계 시스템입니다. 로그 내용을 인덱싱하지 않고 라벨만 인덱싱하여 리소스를 절약합니다. Grafana와 완벽히 연동됩니다. 자체 호스팅이 필요하며, ELK보다 가볍습니다. 대규모 로그에는 검색 속도가 느릴 수 있습니다.</p>
+
+<h3>3. Splunk</h3>
+<p>엔터프라이즈급 로그 관리 플랫폼입니다. 강력한 검색, 분석, 알림 기능을 제공합니다. 무료 티어는 일 500MB까지 사용 가능합니다. 자체 호스팅(Splunk Enterprise)과 클라우드(Splunk Cloud)를 지원합니다. 기능이 가장 풍부하지만 비용이 높습니다.</p>
+
+<h3>4. Papertrail</h3>
+<p>클라우드 기반 로그 관리 서비스입니다. 설정이 간단하고, 웹 인터페이스로 로그를 실시간으로 확인할 수 있습니다. 월 50MB 무료이며, 초과 시 유료입니다. 소규모 프로젝트에 적합합니다.</p>
+
+<h2>선택 기준</h2>
+<table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:12px 0;">
+  <tr><th>사용 목적</th><th>추천</th><th>이유</th></tr>
+  <tr><td>강력한 검색</td><td>ELK Stack</td><td>전문 검색 + 시각화</td></tr>
+  <tr><td>경량 로그 관리</td><td>Loki</td><td>낮은 리소스 + Grafana 연동</td></tr>
+  <tr><td>엔터프라이즈</td><td>Splunk</td><td>종합 분석 + 보안</td></tr>
+  <tr><td>간편한 설정</td><td>Papertrail</td><td>클라우드 + 즉시 사용</td></tr>
+  <tr><td>비용 최소화</td><td>Loki / ELK (자체 호스팅)</td><td>완전 무료</td></tr>
+</table>
+
+<h2>해설·분석</h2>
+<p>로그 관리 도구 선택에서 가장 중요한 것은 **"규모"와 "비용"**입니다. 소규모 프로젝트에는 Papertrail이나 Loki가 적합합니다. 대규모 서비스에는 ELK Stack이나 Splunk가 필요합니다.</p>
+<p>ELK Stack은 기능이 가장 풍부하지만 리소스 사용량이 높습니다. Loki는 경량이지만 검색 속도가 느릴 수 있습니다. Splunk는 엔터프라이즈급이지만 비용이 높습니다.</p>
+<p>결국 "기능" ELK, "경량" Loki, "엔터프라이즈" Splunk, "간편" Papertrail 중에서 선택하면 됩니다.</p>
+
+<h2>자주 묻는 질문</h2>
+<p><strong>Q. 로그 관리가 왜 필요한가요?</strong><br>서비스 장애 시 원인 파악, 보안 감사, 성능 분석에 필수적입니다.</p>
+<p><strong>Q. 무료로 충분한가요?</strong><br>소규모 프로젝트에는 Loki나 Papertrail 무료 티어로 충분합니다.</p>
+<p><strong>Q. 로그를 얼마나 보관해야 하나요?</strong><br>일반적으로 30~90일 보관을 권장합니다. 법적 요구사항에 따라 다를 수 있습니다.</p>
+<p><strong>Q. 출처는 어디서 확인하나요?</strong><br>각 도구의 공식 사이트에서 최신 기능과 가격을 확인할 수 있습니다.</p>
+
+<hr>
+<p><strong>확인일: 2026-11-06</strong> · 출처: <a target="_blank" href="https://www.elastic.co">Elastic</a> · <a target="_blank" href="https://grafana.com/oss/loki">Grafana Loki</a> · <a target="_blank" href="https://www.splunk.com">Splunk</a> · <a target="_blank" href="https://www.papertrail.com">Papertrail</a></p>
+<p>※ 이 글은 공개된 서비스 정보를 바탕으로 정리한 것입니다. 최신 기능과 가격은 각 서비스 공식 사이트에서 확인하세요.</p>
+<script async="async" data-cfasync="false" src="https://bicea.org/21/217bd7d77616da099f246bc0ad772e30"></script>
+<div id="container-217bd7d77616da099f246bc0ad772e30"></div>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "무료 로그 관리 도구 4종 비교 — ELK Stack, Loki, Splunk, Papertrail", "author": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"}, "publisher": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"}, "description": "무료 로그 관리 도구 4종을 기능, 가격, 플랫폼, 검색 기능 기준으로 비교했습니다."}</script>
+<script data-cfasyc="false" src="https://bicea.org/14/422a75f2e2163a1cbe56d8aa4c1df2f8"></script>
+</body>
+</html>
+EOF
+echo "done"
