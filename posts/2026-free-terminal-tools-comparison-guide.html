@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>무료 터미널/콘솔 도구 4종 비교 — Windows Terminal, iTerm2, Hyper, Alacritty</title>
+<meta name="description" content="무료 터미널/콘솔 도구 4종을 기능, 속도, 커스터마이징, 플랫폼 지원 기준으로 비교했습니다.">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2870925450401317" crossorigin="anonymous"></script>
+</head>
+<body>
+<h2>무료 터미널/콘솔 도구 4종 비교 — Windows Terminal, iTerm2, Hyper, Alacritty</h2>
+
+<p><strong>핵심 요약:</strong> 터미널은 개발자와 시스템 관리자의 기본 도구입니다. Windows Terminal, iTerm2, Hyper, Alacritty 4종을 기능, 속도, 커스터마이징, 플랫폼 지원 기준으로 비교합니다.</p>
+
+<h2>비교 대상 도구</h2>
+<table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:12px 0;">
+  <tr><th>도구</th><th>개발사</th><th>라이선스</th><th>플랫폼</th><th>무료 여부</th></tr>
+  <tr><td>Windows Terminal</td><td>Microsoft</td><td>MIT (오픈소스)</td><td>Windows</td><td>완전 무료</td></tr>
+  <tr><td>iTerm2</td><td>George Nachman</td><td>GPL (오픈소스)</td><td>Mac</td><td>완전 무료</td></tr>
+  <tr><td>Hyper</td><td>Vercel</td><td>MIT (오픈소스)</td><td>Windows, Mac, Linux</td><td>완전 무료</td></tr>
+  <tr><td>Alacritty</td><td>Alacritty</td><td>Apache 2.0 (오픈소스)</td><td>Windows, Mac, Linux</td><td>완전 무료</td></tr>
+</table>
+
+<p>출처: <a target="_blank" href="https://github.com/microsoft/terminal">Windows Terminal</a> · <a target="_blank" href="https://iterm2.com">iTerm2</a> · <a target="_blank" href="https://hyper.is">Hyper</a> · <a target="_blank" href="https://alacritty.org">Alacritty</a></p>
+
+<h2>기능별 비교</h2>
+<table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:12px 0;">
+  <tr><th>기능</th><th>Windows Terminal</th><th>iTerm2</th><th>Hyper</th><th>Alacritty</th></tr>
+  <tr><td>탭 지원</td><td>✅</td><td>✅</td><td>✅</td><td>❌ (tmux 필요)</td></tr>
+  <tr><td>분할 창</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td></tr>
+  <tr><td>GPU 가속</td><td>✅</td><td>✅</td><td>❌</td><td>✅</td></tr>
+  <tr><td>테마/커스터마이징</td><td>✅ (JSON)</td><td>✅ (GUI)</td><td>✅ (CSS/JS)</td><td>✅ (YAML)</td></tr>
+  <tr><td>플러그인</td><td>❌</td><td>✅</td><td>✅ (JS)</td><td>❌</td></tr>
+  <tr><td>검색</td><td>✅</td><td>✅ (고급)</td><td>✅</td><td>✅</td></tr>
+  <tr><td>프로필 (WSL/PowerShell/CMD)</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+  <tr><td> quake 모드 (드롭다운)</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td></tr>
+  <tr><td>속도</td><td>빠름</td><td>빠름</td><td>보통</td><td>매우 빠름</td></tr>
+  <tr><td>메모리 사용량</td><td>중간</td><td>중간</td><td>높음</td><td>낮음</td></tr>
+</table>
+
+<h2>도구별 상세 분석</h2>
+
+<h3>1. Windows Terminal</h3>
+<p>Microsoft가 개발한 Windows 전용 터미널입니다. 탭, 분할 창, GPU 가속, quake 모드(드롭다운 터미널)를 지원합니다. PowerShell, CMD, WSL, Azure Cloud Shell을 하나의 창에서 관리할 수 있습니다. JSON 기반 설정으로 커스터마이징이 가능합니다. Windows 11에 기본 내장되어 있습니다.</p>
+
+<h3>2. iTerm2</h3>
+<p>Mac 전용 터미널로, macOS에서 가장 인기 있는 터미널입니다. 분할 창, 탭, 검색 하이라이트, 트리거(자동 명령 실행) 등 고급 기능을 제공합니다. Python API로 자동화가 가능하며, tmux 통합이 뛰어납니다. 셸 통합(Shell Integration)으로 명령 실행 시간, 현재 디렉토리 등을 표시합니다.</p>
+
+<h3>3. Hyper</h3>
+<p>Vercel이 개발한 Electron 기반 터미널입니다. HTML/CSS/JS로 UI를 커스터마이징할 수 있으며, 플러그인 생태계가 있습니다. 크로스 플랫폼을 지원하지만, Electron 기반으로 메모리 사용량이 높고 속도가 느립니다. 시각적으로 가장 화려한 터미널입니다.</p>
+
+<h3>4. Alacritty</h3>
+<p>Rust로 작성된 GPU 가속 터미널로, 가장 빠른 터미널 중 하나입니다. 탭과 분할 창은 지원하지 않지만 (tmux와 함께 사용), 순수 터미널 성능에서 최고입니다. YAML 기반 설정으로 커스터마이징합니다. 크로스 플랫폼을 지원합니다.</p>
+
+<h2>선택 기준</h2>
+<table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:12px 0;">
+  <tr><th>사용 목적</th><th>추천</th><th>이유</th></tr>
+  <tr><td>Windows 사용자</td><td>Windows Terminal</td><td>기본 내장 + WSL 통합</td></tr>
+  <tr><td>Mac 사용자</td><td>iTerm2</td><td>고급 기능 + Mac 최적화</td></tr>
+  <tr><td>최고 속도</td><td>Alacritty</td><td>GPU 가속 + Rust 기반</td></tr>
+  <tr><td>시각적 커스터마이징</td><td>Hyper</td><td>CSS/JS 기반 UI</td></tr>
+  <tr><td>크로스 플랫폼</td><td>Alacritty / Hyper</td><td>Windows, Mac, Linux 지원</td></tr>
+  <tr><td> quake 모드 (드롭다운)</td><td>Windows Terminal / iTerm2</td><td>핫키로 터미널 표시</td></tr>
+</table>
+
+<h2>해설·분석</h2>
+<p>터미널 선택에서 가장 중요한 것은 **"플랫폼"과 "속도"**입니다. Windows 사용자에게는 Windows Terminal이 기본으로 충분합니다. Mac 사용자에게는 iTerm2가 가장 인기 있습니다.</p>
+<p>Alacritty는 속도가 가장 빠르지만 탭/분할 창이 없어 tmux와 함께 사용해야 합니다. Hyper는 시각적으로 화려하지만 성능이 떨어집니다.</p>
+<p>결국 "Windows" Windows Terminal, "Mac" iTerm2, "속도" Alacritty, "디자인" Hyper 중에서 선택하면 됩니다.</p>
+
+<h2>자주 묻는 질문</h2>
+<p><strong>Q. 기본 터미널로 충분한가요?</strong><br>Windows Terminal과 macOS Terminal은 기본 기능이 충분합니다. 고급 기능이 필요하다면 서드파티 도구를 고려하세요.</p>
+<p><strong>Q. tmux는 무엇인가요?</strong><br>터미널 멀티플렉서로, 하나의 터미널에서 여러 창을 관리할 수 있습니다. Alacritty와 함께 사용하면 탭/분할 창 기능을 보완할 수 있습니다.</p>
+<p><strong>Q. 터미널 테마는 어떻게 바꾸나요?</strong><br>각 도구의 설정 파일에서 색상 스키마를 변경할 수 있습니다. Oh My Zsh, Starship 등 프롬프트 커스터마이징 도구도 유용합니다.</p>
+<p><strong>Q. 출처는 어디서 확인하나요?</strong><br>각 도구의 공식 사이트에서 최신 기능과 다운로드를 확인할 수 있습니다.</p>
+
+<hr>
+<p><strong>확인일: 2026-11-06</strong> · 출처: <a target="_blank" href="https://github.com/microsoft/terminal">Windows Terminal</a> · <a target="_blank" href="https://iterm2.com">iTerm2</a> · <a target="_blank" href="https://hyper.is">Hyper</a> · <a target="_blank" href="https://alacritty.org">Alacritty</a></p>
+<p>※ 이 글은 공개된 서비스 정보를 바탕으로 정리한 것입니다. 최신 기능은 각 서비스 공식 사이트에서 확인하세요.</p>
+<script async="async" data-cfasync="false" src="https://bicea.org/21/217bd7d77616da099f246bc0ad772e30"></script>
+<div id="container-217bd7d77616da099f246bc0ad772e30"></div>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "무료 터미널/콘솔 도구 4종 비교 — Windows Terminal, iTerm2, Hyper, Alacritty", "author": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"}, "publisher": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"}, "description": "무료 터미널/콘솔 도구 4종을 기능, 속도, 커스터마이징, 플랫폼 지원 기준으로 비교했습니다."}</script>
+<script data-cfasyc="false" src="https://bicea.org/14/422a75f2e2163a1cbe56d8aa4c1df2f8"></script>
+</body>
+</html>
+EOF
+echo "done"
