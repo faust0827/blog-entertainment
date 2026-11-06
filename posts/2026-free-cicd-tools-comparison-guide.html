@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>무료 CI/CD 도구 4종 비교 — GitHub Actions, GitLab CI, Jenkins, CircleCI</title>
+<meta name="description" content="무료 CI/CD 도구 4종을 빌드 시간, 병렬 실행, 플랫폼 지원, 가격 기준으로 비교했습니다.">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2870925450401317" crossorigin="anonymous"></script>
+</head>
+<body>
+<h2>무료 CI/CD 도구 4종 비교 — GitHub Actions, GitLab CI, Jenkins, CircleCI</h2>
+
+<p><strong>핵심 요약:</strong> CI/CD(지속적 통합/배포)는 개발 워크플로의 핵심입니다. GitHub Actions, GitLab CI, Jenkins, CircleCI 4종을 빌드 시간, 병렬 실행, 플랫폼 지원, 가격 기준으로 비교합니다.</p>
+
+<h2>비교 대상 도구</h2>
+<table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:12px 0;">
+  <tr><th>도구</th><th>개발사</th><th>라이선스</th><th>무료 제한</th></tr>
+  <tr><td>GitHub Actions</td><td>GitHub</td><td>상용 (무료 티어)</td><td>월 2,000분 (Public repo 무제한)</td></tr>
+  <tr><td>GitLab CI</td><td>GitLab</td><td>오픈소스 (CE)</td><td>월 400분 (무료)</td></tr>
+  <tr><td>Jenkins</td><td>CloudBees</td><td>오픈소스 (MIT)</td><td>무제한 (자체 호스팅)</td></tr>
+  <tr><td>CircleCI</td><td>CircleCI</td><td>상용 (무료 티어)</td><td>월 6,000분 (무료)</td></tr>
+</table>
+
+<p>출처: <a target="_blank" href="https://github.com/features/actions">GitHub Actions</a> · <a target="_blank" href="https://docs.gitlab.com/ee/ci">GitLab CI</a> · <a target="_blank" href="https://www.jenkins.io">Jenkins</a> · <a target="_blank" href="https://circleci.com">CircleCI</a></p>
+
+<h2>기능별 비교</h2>
+<table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:12px 0;">
+  <tr><th>기능</th><th>GitHub Actions</th><th>GitLab CI</th><th>Jenkins</th><th>CircleCI</th></tr>
+  <tr><td>YAML 설정</td><td>✅</td><td>✅</td><td>❌ (Groovy)</td><td>✅</td></tr>
+  <tr><td>병렬 실행</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+  <tr><td>캐싱</td><td>✅</td><td>✅</td><td>✅ (플러그인)</td><td>✅</td></tr>
+  <tr><td>매트릭스 빌드</td><td>✅</td><td>✅</td><td>✅ (플러그인)</td><td>✅</td></tr>
+  <tr><td>셀프 호스팅 러너</td><td>✅</td><td>✅</td><td>✅ (자체)</td><td>✅</td></tr>
+  <tr><td>Docker 지원</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+  <tr><td>보안 스캔</td><td>✅ (Dependabot)</td><td>✅ (SAST)</td><td>❌ (플러그인)</td><td>✅ (Orb)</td></tr>
+  <tr><td>플러그인/확장</td><td>Actions Marketplace</td><td>Templates</td><td>1800+ 플러그인</td><td>Orbs</td></tr>
+  <tr><td>UI/UX</td><td>우수</td><td>우수</td><td>구식</td><td>우수</td></tr>
+</table>
+
+<h2>도구별 상세 분석</h2>
+
+<h3>1. GitHub Actions</h3>
+<p>GitHub에 통합된 CI/CD 도구로, YAML로 워크플로우를 정의합니다. Public 저장소는 무제한 빌드 시간을 제공하며, Private 저장소는 월 2,000분 무료입니다. Actions Marketplace에서 수천 개의 재사용 가능한 액션을 사용할 수 있습니다. GitHub 생태계와의 통합이 가장 자연스럽습니다.</p>
+
+<h3>2. GitLab CI</h3>
+<p>GitLab에 내장된 CI/CD로, `.gitlab-ci.yml`로 파이프라인을 정의합니다. Community Edition(CE)은 오픈소스로 자체 호스팅 가능합니다. Auto DevOps 기능으로 자동 파이프라인 구성이 가능합니다. 월 400분 무료 빌드 시간을 제공합니다.</p>
+
+<h3>3. Jenkins</h3>
+<p>가장 오래된 CI/CD 도구로, 1800개 이상의 플러그인을 제공합니다. 자체 서버에 설치하여 사용하며, 빌드 시간 제한이 없습니다. Groovy 기반 파이프라인으로 복잡한 워크플로를 구성할 수 있습니다. UI가 구식이고, 서버 유지보수가 필요합니다.</p>
+
+<h3>4. CircleCI</h3>
+<p>클라우드 기반 CI/CD 서비스로, `.circleci/config.yml`로 파이프라인을 정의합니다. 월 6,000분 무료 빌드 시간을 제공하며, Docker 레이어 캐싱과 병렬 실행이 뛰어납니다. Orb(재사용 가능한 설정 패키지) 생태계가 있습니다. 성능이 좋지만 무료 티어가 제한적입니다.</p>
+
+<h2>선택 기준</h2>
+<table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:12px 0;">
+  <tr><th>사용 목적</th><th>추천</th><th>이유</th></tr>
+  <tr><td>GitHub 저장소 사용</td><td>GitHub Actions</td><td>네이티브 통합 + 무료 (Public)</td></tr>
+  <tr><td>GitLab 저장소 사용</td><td>GitLab CI</td><td>네이티브 통합 + Auto DevOps</td></tr>
+  <tr><td>자체 호스팅 필요</td><td>Jenkins</td><td>무제한 + 완전한 제어</td></tr>
+  <tr><td>고성능 빌드</td><td>CircleCI</td><td>빠른 빌드 + 캐싱</td></tr>
+  <tr><td>무료로 최대 빌드 시간</td><td>CircleCI (6,000분)</td><td>가장 많은 무료 빌드 시간</td></tr>
+  <tr><td>플러그인 생태계</td><td>Jenkins</td><td>1800+ 플러그인</td></tr>
+</table>
+
+<h2>해설·분석</h2>
+<p>CI/CD 도구 선택에서 가장 중요한 것은 **"저장소 호스팅"과 "빌드 시간"**입니다. GitHub을 사용한다면 GitHub Actions가 가장 자연스럽고, GitLab을 사용한다면 GitLab CI가 최적입니다.</p>
+<p>Jenkins는 자체 호스팅이 필요하지만, 무제한 빌드 시간과 완전한 제어가 가능합니다. CircleCI는 성능이 뛰어나지만 무료 티어가 제한적입니다.</p>
+<p>결국 "GitHub 사용자" GitHub Actions, "GitLab 사용자" GitLab CI, "자체 호스팅" Jenkins, "고성능" CircleCI 중에서 선택하면 됩니다.</p>
+
+<h2>자주 묻는 질문</h2>
+<p><strong>Q. CI/CD가 무엇인가요?</strong><br>CI(지속적 통합)는 코드 변경 시 자동으로 빌드/테스트하는 것이고, CD(지속적 배포)는 테스트 통과 시 자동으로 배포하는 것입니다.</p>
+<p><strong>Q. 무료로 사용할 수 있나요?</strong><br>GitHub Actions(Public repo 무제한), GitLab CI(월 400분), Jenkins(무제한, 자체 호스팅), CircleCI(월 6,000분) 모두 무료 플랜을 제공합니다.</p>
+<p><strong>Q. 어떤 도구가 가장 인기 있나요?</strong><br>GitHub Actions가 현재 가장 인기 있는 CI/CD 도구이며, Jenkins가 엔터프라이즈에서 여전히 널리 사용됩니다.</p>
+<p><strong>Q. 출처는 어디서 확인하나요?</strong><br>각 도구의 공식 사이트에서 최신 기능과 가격을 확인할 수 있습니다.</p>
+
+<hr>
+<p><strong>확인일: 2026-11-06</strong> · 출처: <a target="_blank" href="https://github.com/features/actions">GitHub Actions</a> · <a target="_blank" href="https://docs.gitlab.com/ee/ci">GitLab CI</a> · <a target="_blank" href="https://www.jenkins.io">Jenkins</a> · <a target="_blank" href="https://circleci.com">CircleCI</a></p>
+<p>※ 이 글은 공개된 서비스 정보를 바탕으로 정리한 것입니다. 최신 기능과 가격은 각 서비스 공식 사이트에서 확인하세요.</p>
+<script async="async" data-cfasync="false" src="https://bicea.org/21/217bd7d77616da099f246bc0ad772e30"></script>
+<div id="container-217bd7d77616da099f246bc0ad772e30"></div>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "무료 CI/CD 도구 4종 비교 — GitHub Actions, GitLab CI, Jenkins, CircleCI", "author": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"}, "publisher": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"}, "description": "무료 CI/CD 도구 4종을 빌드 시간, 병렬 실행, 플랫폼 지원, 가격 기준으로 비교했습니다."}</script>
+<script data-cfasyc="false" src="https://bicea.org/14/422a75f2e2163a1cbe56d8aa4c1df2f8"></script>
+</body>
+</html>
+EOF
+echo "done"
