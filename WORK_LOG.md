@@ -17,3 +17,5 @@
 - 2026-11-09 16:50 [X230] 조회수 0 원인 분석: sitemap 58 정상, robots 정상, 오늘 글 색인됨. 원인=신규 도메인 신뢰도 낮음+내부링크 0+제목 템플릿 중복. 조치=최근 무료비교 12종에 내부링크 추가, 신규 가이드 2건 초안(동영상 플레이어/화상회의, 게이트 11/11) | 범위: posts 14 | 다음: Search Console 수동 색인 요청 10건, 내부링크 라이브 반영은 publish.py 갱신으로
 - 2026-11-09 17:20 [X230] 전권 운영: Blogger 예약 26건 실재 확인(view=ADMIN SCHEDULED) 후 누락분 재예약 완료 (11/10~12/05, 라벨 생활정보). 신규 가이드 2건 예약 (12/06 동영상 플레이어, 12/07 화상회의). index_urls 라이브 58건 갱신, search_descriptions 2건 확인, ledger 35건 정합. 12종 free 가이드 내부링크는 로컬에만 반영(미발행, LIVE 아님) — 라이브 갱신 불가, 스케줄 여유 후 발행 검토 | 범위: ledger/index_urls/WORK_LOG | 다음: Search Console 색인 요청 10건 수동, 12종 발행 스케줄 검토
 - 2026-11-09 17:28 [X230] 미색인 43 대응: sitemap/index 58 일치·LIVE 58/58(404/redirect 0) 전수점검 스크립트화, 개선 6건(가이드) 내부링크·제목정합·게이트11/11, 정리 52건 목록분리(비공개 미실행, publish.py에 삭제로직 없음), 색인우선순위 6건 | 범위: automation/check_live.py, data/live_check.json, data/live_posts.json, data/unindexed_classification.json, data/remediation_list.md, data/index_priority.txt, posts 6, url_map | 커밋: 0c9ec8f | 다음: Search Console 가이드 6건 수동 색인요청, 검수 후 --update 반영
+
+- 2026-11-09 17:39 [X230] 사용자 Search Console 색인 요청 6건 완료 (가이드 우선순위) | automation/index_priority.txt | 다음: 크롤링 결과 확인 2-3일 후
