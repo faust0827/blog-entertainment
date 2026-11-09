@@ -1,0 +1,427 @@
+{
+  "generated": "2026-11-09",
+  "sitemap_count": 58,
+  "index_count": 58,
+  "live_200": 58,
+  "dead": [],
+  "redirects": [],
+  "note": "Search Console '발견됨 - 현재 색인 없음' 43건 중 사용자 제공 10건 전수 200 확인. 58건 전수 결과 깨진 링크 0. 43건 중 색인된 15건 목록 미제공이므로 58건 전체 분류.",
+  "improve_count": 6,
+  "cleanup_count": 52,
+  "improve": [
+    {
+      "post_id": "1953678847458461323",
+      "url": "https://issuedayissue.blogspot.com/2026/11/blog-post_08.html",
+      "title": "와이파이 속도가 느릴 때 점검 순서 — 회선부터 무선 환경까지",
+      "local_file": "posts/2026-wifi-slow-troubleshooting-guide.html",
+      "action": "검색설명 있음·내부링크 3건 추가·게이트 11/11",
+      "live_update": "보류 - 로컬 개선본 준비 완료, publish.py --update <ID> --publish --reviewed 로 반영 가능 (라이브 직접 덮어쓰기 안 함)"
+    },
+    {
+      "post_id": "4739204457356403644",
+      "url": "https://issuedayissue.blogspot.com/2026/11/pdf.html",
+      "title": "무료 PDF 편집 프로그램 선택 기준 — 작업 목적별 비교 가이드",
+      "local_file": "posts/2026-pdf-tools-selection-guide.html",
+      "action": "검색설명 있음·내부링크 3건 추가·게이트 11/11",
+      "live_update": "보류 - 로컬 개선본 준비 완료, publish.py --update <ID> --publish --reviewed 로 반영 가능 (라이브 직접 덮어쓰기 안 함)"
+    },
+    {
+      "post_id": "1935367599539753429",
+      "url": "https://issuedayissue.blogspot.com/2026/11/blog-post_04.html",
+      "title": "겨울 방한 아이템 선택과 관리 기준 — 소비자 가이드",
+      "local_file": "posts/2026-winter-warmth-items-guide.html",
+      "action": "검색설명 있음·내부링크 3건 추가·게이트 11/11",
+      "live_update": "보류 - 로컬 개선본 준비 완료, publish.py --update <ID> --publish --reviewed 로 반영 가능 (라이브 직접 덮어쓰기 안 함)"
+    },
+    {
+      "post_id": "311755346465318974",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_444.html",
+      "title": "해피블루 여성 기모 양말 — 겨울 양말 선택 가이드",
+      "local_file": "posts/2026-happyblue-fleece-socks.html",
+      "action": "검색설명 있음·내부링크 3건 추가·게이트 11/11",
+      "live_update": "보류 - 로컬 개선본 준비 완료, publish.py --update <ID> --publish --reviewed 로 반영 가능 (라이브 직접 덮어쓰기 안 함)"
+    },
+    {
+      "post_id": "3899801867284636873",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_29.html",
+      "title": "라세르 겨울 방한 기모 바라클라바 — 겨울 방한 아이템 리뷰",
+      "local_file": "posts/2026-laser-balaclava-winter.html",
+      "action": "검색설명 있음·내부링크 3건 추가·게이트 11/11",
+      "live_update": "보류 - 로컬 개선본 준비 완료, publish.py --update <ID> --publish --reviewed 로 반영 가능 (라이브 직접 덮어쓰기 안 함)"
+    },
+    {
+      "post_id": "5147588241059464406",
+      "url": "https://issuedayissue.blogspot.com/2026/10/2l6.html",
+      "title": "[리뷰] 녹물 나온 아파트에서 생수로 바꾼 이유 — 제주삼다수 그린 무라벨 2L×6",
+      "local_file": "posts/2026-jeju-samdalsoo-green-nolabel.html",
+      "action": "제목 [리뷰] 접두사 라이브와 일치·검색설명 있음·내부링크 3건 추가·게이트 11/11",
+      "live_update": "보류 - 로컬 개선본 준비 완료, publish.py --update <ID> --publish --reviewed 로 반영 가능 (라이브 직접 덮어쓰기 안 함)"
+    }
+  ],
+  "cleanup": [
+    {
+      "post_id": "1283689606875934659",
+      "url": "https://issuedayissue.blogspot.com/2026/11/blog-post_481.html",
+      "title": "온라인 커뮤니티에서 사진 한 장이 논란이 되는 이유",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "6702516039202208456",
+      "url": "https://issuedayissue.blogspot.com/2026/11/ai_0883846835.html",
+      "title": "게임 산업과 AI 활용 — 시프트업 뮤직비디오 논란이 보여준 커뮤니티 기대",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "3942218727559038727",
+      "url": "https://issuedayissue.blogspot.com/2026/11/ai.html",
+      "title": "AI 이미지 생성과 저작권 논란 — 커뮤니티 반응과 쟁점",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "3447873767973636051",
+      "url": "https://issuedayissue.blogspot.com/2026/11/blog-post.html",
+      "title": "구룡마을 화재진압 후 소방대원 사진 논란 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "5173385181959083602",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_30.html",
+      "title": "[정보] 정지! 정지! 손 들어! 움직이면 쏜다! — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "5501867976633192341",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_166.html",
+      "title": "게이머의 기부 약속 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "6227092322686334478",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_819.html",
+      "title": "현수막 작업 완료 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "2625300910489991155",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_51.html",
+      "title": "게임에서 몹을 시비 걸었다가 한방에 당한 사연 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "7001584223751012202",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_119.html",
+      "title": "신입 사원에게 충고한 상사 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "87006236955188546",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_956.html",
+      "title": "경상도 친구들 특유의 화법 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "6738072478711826932",
+      "url": "https://issuedayissue.blogspot.com/2026/10/ai_01702769162.html",
+      "title": "수능시험 AI 안경 부정행위 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "2454613238450289589",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_373.html",
+      "title": "배우 최불암 별세 — \"국민 아버지\" 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "7012474472472702813",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_852.html",
+      "title": "상견례 망했다는 예비 신부 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "3423854252286964265",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_326.html",
+      "title": "동네 세탁소에서 의외로 흔한 일 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "515846886283431414",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_894.html",
+      "title": "태권도 학원차가 한 아이만 내려주고 지켜 본 이유 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "8597250435679845582",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_903.html",
+      "title": "교과서에 실린 네안데르탈인의 모습 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "769186338015886277",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_500.html",
+      "title": "전직 판사가 악플을 읽어보는 영상 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "6835735462428566924",
+      "url": "https://issuedayissue.blogspot.com/2026/10/ai.html",
+      "title": "어느 기업의 클라우드 저장소 — AI 이미지 논란 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "3922928964634265328",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_357.html",
+      "title": "가난을 벗어나기 힘든 이유 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "5819508135312935474",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_41.html",
+      "title": "\"한국에도 ㅁㅁ있어???\" — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "8939294680170261714",
+      "url": "https://issuedayissue.blogspot.com/2026/10/1995.html",
+      "title": "1995년 실종 여동생 사건 — 오빠 자백과 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "1303630967308319693",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_915.html",
+      "title": "장례식장 울어주기 알바 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "4375728190225602425",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_802.html",
+      "title": "돈복사 버그를 발견한 사연 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "3907789449162913172",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_613.html",
+      "title": "어린이집 개인정보 유출 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "3057400797398759472",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_117.html",
+      "title": "아이폰 듀오 힌지 사태 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "3733637477287947327",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_968.html",
+      "title": "가을 결혼식 축의금 기준 정리 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "5196246981025586946",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_303.html",
+      "title": "\"서비스 음료 미제공\" — 음식점 유료 전환 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "3370072620121443166",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_566.html",
+      "title": "고백 거절 반응 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "6090459368897178945",
+      "url": "https://issuedayissue.blogspot.com/2026/10/20-13_0338619106.html",
+      "title": "20살에 13살 많은 점장에게 고백 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "2420796373087219003",
+      "url": "https://issuedayissue.blogspot.com/2026/10/50.html",
+      "title": "나이 50에 애를 낳은 연예인 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "7874552101655135837",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_469.html",
+      "title": "경마 역대급 장면 — \"혀 놀림이 아주~\" 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "6344481942599562769",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_552.html",
+      "title": "순댓국집 배달 옵션 황당 구성 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "1219267573982524336",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_651.html",
+      "title": "강아지 유치원 \"소심반\" — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "4603604331162754368",
+      "url": "https://issuedayissue.blogspot.com/2026/10/10.html",
+      "title": "신라 승려의 10년 모험담 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "5053182145657017705",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_970.html",
+      "title": "화재 구조 후 재산 피해 보상 요구 — 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "8432170666190736522",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_953.html",
+      "title": "수탉 사건 판사 판결 — \"고의성 없다\" 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "2068307201320709473",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_952.html",
+      "title": "납치·폭행 사건 범인 감형 — \"고의성 없다\" 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "5531533738976556449",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_633.html",
+      "title": "새벽부터 기다린 꼬마의 울음 소리에 나와 사인해주는 손흥민 — 해외반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "1631519126775356799",
+      "url": "https://issuedayissue.blogspot.com/2026/10/inven.html",
+      "title": "나만의 약국을 꿈꾸며 공부 열심히한 약사 — inven 반응 모음",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "8271019301093047421",
+      "url": "https://issuedayissue.blogspot.com/2026/10/119-2.html",
+      "title": "소아청소년과 근황 — 119명 모집에 2명 지원, 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "6285264781372932675",
+      "url": "https://issuedayissue.blogspot.com/2026/10/humoruniv_0271298328.html",
+      "title": "가스파드 탕수육 실제 후기 — humoruniv 반응 모음",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "5417192308878916243",
+      "url": "https://issuedayissue.blogspot.com/2026/10/humoruniv_01686489683.html",
+      "title": "엄마가 돌아가셨어 — humoruniv 반응 모음",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "2292679672034049287",
+      "url": "https://issuedayissue.blogspot.com/2026/10/3843.html",
+      "title": "서울대 공대 학점 3.8/4.3인데도 서류 탈락 — 취업시장 근황과 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "1979921442790147892",
+      "url": "https://issuedayissue.blogspot.com/2026/10/86.html",
+      "title": "86년생이면 아줌마 소리 들을 나이야?? — 개드립 반응 모음",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "1743962546058789213",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_663.html",
+      "title": "족발 시키다 알게된 불륜썰 — 개드립 반응 모음",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "9148177500126293604",
+      "url": "https://issuedayissue.blogspot.com/2026/10/humoruniv.html",
+      "title": "꿈꾸던 약국을 직접 차린 약사님 — humoruniv 반응 모음",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "5917860653933266655",
+      "url": "https://issuedayissue.blogspot.com/2026/10/20-13.html",
+      "title": "20살에 13살 많은 점장에게 고백한 사연 — 커뮤니티 반응 모음",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "8447670442008103258",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_645.html",
+      "title": "디시 싱갤 글로 서울우유에 고소당한 썰 — 커뮤니티 반응 모음",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "2899605269643182875",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post_28.html",
+      "title": "원당역 역무원 칼부림 사건 — 코레일 안전관리 부실과 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "6515552005005700075",
+      "url": "https://issuedayissue.blogspot.com/2026/10/2-2.html",
+      "title": "2주째 아이 하나만 내려주고 2분 지켜본 태권도 사범 — 커뮤니티 반응 모음",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "570395806653646272",
+      "url": "https://issuedayissue.blogspot.com/2026/10/blog-post.html",
+      "title": "무덤 밟고 웨딩 촬영하는 커플 — \"결혼은 무덤\" 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    },
+    {
+      "post_id": "8504141544181679027",
+      "url": "https://issuedayissue.blogspot.com/2026/10/60.html",
+      "title": "장애인 식사비 60만 원 익명 결제 — 인천 미담과 커뮤니티 반응",
+      "reason": "커뮤니티 큐레이션 저품질/중복 (ADSENSE_REMEDIATION: 댓글 요약 위주, 비공개/재작성 대상)",
+      "action": "목록 분리만 - 실제 비공개/삭제 안 함 (publish.py에 비공개·삭제 기능 없음, Blogger API 직접 삭제는 비가역)"
+    }
+  ]
+}
