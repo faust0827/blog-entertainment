@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>무료 클라우드 IDE 비교 — GitHub Codespaces, Gitpod, Replit, CodeSandbox</title>
+<meta name="description" content="무료로 사용할 수 있는 클라우드 IDE 4종을 기능, 자원, 협업, 언어 지원 기준으로 비교했습니다.">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2870925450401317" crossorigin="anonymous"></script>
+<link rel="canonical" href="https://issuedayissue.blogspot.com/2026/free-cloud-ide-comparison-guide.html">
+<meta property="og:title" content="무료 클라우드 IDE 비교 — GitHub Codespaces, Gitpod, Replit, CodeSandbox">
+<meta property="og:description" content="무료로 사용할 수 있는 클라우드 IDE 4종을 기능, 자원, 협업, 언어 지원 기준으로 비교했습니다.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://issuedayissue.blogspot.com/2026/free-cloud-ide-comparison-guide.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "무료 클라우드 IDE 비교 — GitHub Codespaces, Gitpod, Replit, CodeSandbox",
+  "datePublished": "2026-11-25",
+  "author": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"},
+  "publisher": {"@type": "Organization", "name": "커뮤니티 큐레이션 블로그"}
+}
+</script>
+</head>
+<body>
+<h2>무료 클라우드 IDE 비교 — GitHub Codespaces, Gitpod, Replit, CodeSandbox</h2>
+
+<p><strong>핵심 요약:</strong> 클라우드 IDE는 설치 없이 브라우저에서 코딩, 빌드, 실행, 배포까지 가능한 개발 환경입니다. GitHub Codespaces, Gitpod, Replit, CodeSandbox 4종을 무료 할당량, 지원 언어, 협업, 배포 기능 기준으로 비교합니다. 로컬 환경 구축이 어려운 초보자나 빠른 프로토타이핑이 필요한 개발자에게 유용합니다.</p>
+
+<h2>비교 대상 도구</h2>
+<table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:12px 0;">
+  <tr><th>도구</th><th>운영사</th><th>무료 할당량</th><th>주요 언어</th><th>배포</th></tr>
+  <tr><td>GitHub Codespaces</td><td>GitHub (Microsoft)</td><td>월 120 코어시간, 15GB 스토리지</td><td>다중 (Dev Container)</td><td>GitHub Pages, Actions</td></tr>
+  <tr><td>Gitpod</td><td>Gitpod</td><td>월 50시간 (무료 티어)</td><td>다중 (Docker 기반)</td><td>외부 연동</td></tr>
+  <tr><td>Replit</td><td>Replit</td><td>무제한(제한적 자원)</td><td>50+ 언어</td><td>Replit Deployments</td></tr>
+  <tr><td>CodeSandbox</td><td>CodeSandbox</td><td>무료 티어 (제한)</td><td>Web 중심 (JS/TS/React)</td><td>Vercel 연동</td></tr>
+</table>
+
+<p>출처: <a target="_blank" href="https://github.com/features/codespaces">GitHub Codespaces</a> · <a target="_blank" href="https://www.gitpod.io">Gitpod</a> · <a target="_blank" href="https://replit.com">Replit</a> · <a target="_blank" href="https://codesandbox.io">CodeSandbox</a></p>
+
+<h2>기능별 비교</h2>
+<table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:12px 0;">
+  <tr><th>기능</th><th>Codespaces</th><th>Gitpod</th><th>Replit</th><th>CodeSandbox</th></tr>
+  <tr><td>브라우저 IDE</td><td>✅ (VS Code)</td><td>✅ (VS Code/Theia)</td><td>✅ (자체)</td><td>✅ (자체)</td></tr>
+  <tr><td>로컬 IDE 연결</td><td>✅ (SSH)</td><td>✅ (SSH)</td><td>❌</td><td>❌</td></tr>
+  <tr><td>환경 재현성</td><td>✅ (Dev Container)</td><td>✅ (Docker)</td><td>△ (Nix)</td><td>△</td></tr>
+  <tr><td>실시간 협업</td><td>❌</td><td>❌</td><td>✅</td><td>✅</td></tr>
+  <tr><td>Git 통합</td><td>✅ (네이티브)</td><td>✅ (네이티브)</td><td>✅</td><td>✅</td></tr>
+  <tr><td>데이터베이스 지원</td><td>✅ (컨테이너)</td><td>✅ (컨테이너)</td><td>✅ (내장)</td><td>△</td></tr>
+  <tr><td>모바일 지원</td><td>△</td><td>△</td><td>✅</td><td>△</td></tr>
+  <tr><td>AI 보조</td><td>✅ (Copilot)</td><td>△</td><td>✅ (Replit AI)</td><td>✅</td></tr>
+</table>
+
+<h2>도구별 상세 분석</h2>
+
+<h3>1. GitHub Codespaces</h3>
+<p>GitHub 저장소에 통합된 클라우드 개발 환경입니다. Dev Container 설정으로 환경을 코드로 정의할 수 있어 재현성이 높습니다. VS Code 기반 에디터와 GitHub Copilot 연동으로 생산성이 뛰어납니다. 무료 할당량은 월 120 코어시간과 15GB 스토리지이며, 개인 GitHub 계정으로 사용 가능합니다. 오픈소스 기여자에게는 추가 할당량이 제공됩니다.</p>
+
+<h3>2. Gitpod</h3>
+<p>브라우저 기반 클라우드 개발 환경으로, Git 저장소를 열면 즉시 개발 환경이 구성됩니다. Docker 기반으로 환경을 정의할 수 있으며, VS Code와 JetBrains IDE를 지원합니다. 무료 티어는 월 50시간이며, GitHub/GitLab/Bitbucket과 연동됩니다. 에페메럴 환경으로 보안성이 높지만, 장시간 작업에는 할당량이 부족할 수 있습니다.</p>
+
+<h3>3. Replit</h3>
+<p>브라우저에서 즉시 코드를 작성하고 실행할 수 있는 온라인 IDE입니다. 50개 이상의 언어를 지원하며, 실시간 협업 기능이 강점입니다. 초보자에게 친화적인 UI와 내장 AI 보조(Replit AI)를 제공합니다. 무료 티어는 자원이 제한적이지만 사용 시간 제한은 없습니다. Replit Deployments로 간단히 배포할 수 있습니다.</p>
+
+<h3>4. CodeSandbox</h3>
+<p>웹 개발에 특화된 클라우드 IDE입니다. React, Vue, Angular, Svelte 등 프론트엔드 프레임워크에 최적화되어 있습니다. 실시간 협업과 라이브 프리뷰가 강점이며, Vercel과 연동하여 배포할 수 있습니다. Node.js 백엔드도 지원하지만, 주 용도는 프론트엔드 프로토타이핑입니다.</p>
+
+<h2>선택 기준</h2>
+<table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:12px 0;">
+  <tr><th>사용 환경</th><th>추천</th><th>이유</th></tr>
+  <tr><td>GitHub 프로젝트</td><td>Codespaces</td><td>네이티브 통합 + Copilot</td></tr>
+  <tr><td>오픈소스 기여</td><td>Gitpod</td><td>에페메럴 환경 + 다중 Git 호스팅</td></tr>
+  <tr><td>초보자 학습</td><td>Replit</td><td>간편한 UI + 실시간 협업</td></tr>
+  <tr><td>프론트엔드 프로토타입</td><td>CodeSandbox</td><td>프레임워크 최적화 + 라이브 프리뷰</td></tr>
+  <tr><td>장시간 작업</td><td>Codespaces</td><td>120 코어시간 무료 할당량</td></tr>
+</table>
+
+<h2>사용 시 주의사항</h2>
+<ul>
+  <li><strong>할당량 관리</strong>: 무료 티어는 코어시간/스토리지가 제한되므로, 사용하지 않을 때는 환경을 중지하세요</li>
+  <li><strong>보안</strong>: 클라우드 IDE에 API 키나 비밀번호를 하드코딩하지 마세요. 시크릿 관리 기능을 사용하세요</li>
+  <li><strong>데이터 백업</strong>: 에페메럴 환경은 삭제 시 데이터가 사라질 수 있으므로, Git에 커밋하세요</li>
+  <li><strong>네트워크 의존</strong>: 인터넷 연결이 필수이며, 오프라인 작업은 불가능합니다</li>
+  <li><strong>성능 제한</strong>: 무료 티어는 CPU/메모리가 제한되어 무거운 빌드에 부적합할 수 있습니다</li>
+</ul>
+
+<h2>해설·분석</h2>
+<p>클라우드 IDE 선택에서 가장 중요한 것은 **"작업 유형과 할당량"**입니다. GitHub 생태계에서 작업한다면 Codespaces가 가장 자연스럽고, 오픈소스 기여나 다중 Git 호스팅이 필요하다면 Gitpod가 적합합니다.</p>
+<p>Replit은 초보자와 교육 목적으로 최적화되어 있으며, 실시간 협업이 필요한 경우 CodeSandbox와 함께 고려할 수 있습니다. CodeSandbox는 프론트엔드 프로토타이핑에 특화되어 있어, React/Vue 기반 프로젝트에 빠르게 시작할 수 있습니다.</p>
+<p>무료 할당량만으로도 대부분의 학습과 프로토타이핑은 가능하지만, 상용 프로젝트나 장시간 작업에는 유료 플랜이나 로컬 환경이 필요합니다.</p>
+
+<h2>자주 묻는 질문</h2>
+<p><strong>Q. 클라우드 IDE는 오프라인에서 사용할 수 있나요?</strong><br>아니요. 클라우드 IDE는 인터넷 연결이 필수입니다. 오프라인 작업이 필요하면 VS Code 등 로컬 IDE를 사용하세요.</p>
+<p><strong>Q. 무료 할당량이 부족하면 어떻게 하나요?</strong><br>유료 플랜으로 업그레이드하거나, 여러 도구를 병행 사용할 수 있습니다. 학생은 GitHub Student Developer Pack으로 추가 혜택을 받을 수 있습니다.</p>
+<p><strong>Q. 어떤 도구가 보안에 가장 강한가요?</strong><br>에페메럴 환경(Gitpod)은 세션 종료 시 데이터가 삭제되어 보안에 유리합니다. Codespaces도 컨테이너 기반으로 격리됩니다. 비밀 정보는 시크릿 관리 기능을 사용하세요.</p>
+<p><strong>Q. 출처는 어디서 확인하나요?</strong><br>각 도구의 공식 사이트와 문서에서 확인할 수 있습니다.</p>
+</body>
+</html>
