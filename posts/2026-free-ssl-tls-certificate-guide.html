@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>무료 SSL/TLS 인증서 발급 가이드 — Let's Encrypt, Cloudflare, ZeroSSL 비교</title>
+<meta name="description" content="무료 SSL/TLS 인증서 발급 서비스 4종을 발급 방식, 자동 갱신, 와일드카드 지원, 호스팅 제약 기준으로 비교했습니다.">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2870925450401317" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"무료 SSL/TLS 인증서 발급 가이드","author":{"@type":"Organization","name":"IssueIssue"},"datePublished":"2026-11-26"}
+</script>
+</head>
+<body>
+<h2>무료 SSL/TLS 인증서 발급 가이드 — Let's Encrypt, Cloudflare, ZeroSSL 비교</h2>
+
+<p><strong>핵심 요약:</strong> SSL/TLS 인증서는 사이트 보안과 SEO에 필수입니다. 무료 인증서 4종을 발급 방식, 자동 갱신, 와일드카드 지원, 호스팅 제약 기준으로 비교합니다.</p>
+
+<h2>비교 대상 서비스</h2>
+<table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:12px 0;">
+  <tr><th>서비스</th><th>유형</th><th>플랫폼</th><th>무료 제한</th></tr>
+  <tr><td>Let's Encrypt</td><td>CA</td><td>모든 서버</td><td>완전 무료</td></tr>
+  <tr><td>Cloudflare SSL</td><td>CDN 통합</td><td>Cloudflare</td><td>무료 플랜 포함</td></tr>
+  <tr><td>ZeroSSL</td><td>CA</td><td>모든 서버</td><td>월 3개 무료</td></tr>
+  <tr><td>AWS Certificate Manager</td><td>클라우드</td><td>AWS</td><td>AWS 리소스용 무료</td></tr>
+</table>
+
+<p>출처: <a target="_blank" href="https://letsencrypt.org">Let's Encrypt</a> · <a target="_blank" href="https://www.cloudflare.com">Cloudflare</a> · <a target="_blank" href="https://zerossl.com">ZeroSSL</a> · <a target="_blank" href="https://aws.amazon.com/certificate-manager">AWS ACM</a></p>
+
+<h2>기능별 비교</h2>
+<table border="1" cellpadding="6" cellspacing="0" style="width:100%;border-collapse:collapse;margin:12px 0;">
+  <tr><th>기능</th><th>Let's Encrypt</th><th>Cloudflare</th><th>ZeroSSL</th><th>AWS ACM</th></tr>
+  <tr><td>와일드카드</td><td>DNS 인증 시</td><td>✅</td><td>DNS 인증 시</td><td>✅</td></tr>
+  <tr><td>자동 갱신</td><td>certbot</td><td>자동</td><td>API</td><td>자동</td></tr>
+  <tr><td>유효 기간</td><td>90일</td><td>자동</td><td>90일</td><td>13개월</td></tr>
+  <tr><td>OV/EV</td><td>DV만</td><td>DV만</td><td>DV만</td><td>DV만</td></tr>
+  <tr><td>학습 난이도</td><td>보통</td><td>낮음</td><td>낮음</td><td>보통</td></tr>
+</table>
+
+<h2>서비스별 상세 분석</h2>
+
+<h3>1. Let's Encrypt</h3>
+<p>Let's Encrypt는 ISRG가 운영하는 무료 CA로 가장 널리 쓰입니다. 분석: certbot으로 자동 발급·갱신이 가능합니다.</p>
+
+<h3>2. Cloudflare SSL</h3>
+<p>Cloudflare SSL은 CDN 통합 인증서로 설정이 간단합니다. 분석: 프록시 모드에서 자동 관리됩니다.</p>
+
+<h3>3. ZeroSSL</h3>
+<p>ZeroSSL은 웹 인터페이스가 친절한 무료 CA입니다. 분석: 무료 플랜은 월 3개 제한이 있습니다.</p>
+
+<h3>4. AWS Certificate Manager</h3>
+<p>AWS ACM은 AWS 리소스에 무료 인증서를 제공합니다. 분석: ALB/CloudFront에서 자동 갱신됩니다.</p>
+
+<h2>선택 가이드</h2>
+<p>자체 서버는 Let's Encrypt, Cloudflare 사용자는 Cloudflare SSL, 빠른 발급은 ZeroSSL, AWS 사용자는 ACM을 선택하세요. 해설: 인증서 선택은 호스팅 환경에 따라 달라집니다. 배경: 자동 갱신 설정이 핵심입니다. 맥락: 와일드카드 필요 시 DNS 인증이 필요합니다. 의미: 무료 인증서도 충분한 보안을 제공합니다. 시사점: HTTPS는 SEO와 신뢰도에 직접 영향을 줍니다.</p>
+
+<h2>결론</h2>
+<p>무료 SSL/TLS 인증서는 대부분의 사이트에 충분한 보안을 제공합니다. Let's Encrypt는 범용성, Cloudflare는 편의성, ZeroSSL은 접근성, AWS ACM은 클라우드 통합에서 강점이 있습니다.</p>
+</body>
+</html>
